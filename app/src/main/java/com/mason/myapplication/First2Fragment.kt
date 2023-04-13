@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 import com.mason.myapplication.databinding.FragmentFirst2Binding
 
@@ -34,6 +36,10 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
 
     }
 
+    companion object {
+        private const val TAG = "First2Fragment"
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -42,10 +48,22 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
         binding.buttonFirst.setOnClickListener {
 //            findNavController().navigate(R.id.action_First2Fragment_to_Second2Fragment)
 //            if (loginViewModel.login()) {
-                requireActivity().also {
+            /*
+            requireActivity().also {
                     startActivity(Intent(it, MainActivity::class.java))
+        }
+            */
+            FirebaseDatabase.getInstance()
+                .getReference("user")
+                .child("auth1")
+                .child("test_child")
+                .setValue("test_value")
+                .addOnCompleteListener {
+                    Log.d(Companion.TAG, "Firebase Database set test value complete.")
+                    //create toast to show success
+                    Toast.makeText(requireContext(), "Firebase Database set test value complete.", Toast.LENGTH_SHORT).show()
                 }
-//            }
+
         }
     }
 
@@ -56,7 +74,7 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
 
     override fun onStart() {
         super.onStart()
-        Log.d(TAG, "onStart() called")
+        Log.d(Companion.TAG, "onStart() called")
 //        FirebaseApp.initializeApp(requireActivity())
 
 //        FirebaseAuth.getInstance().addAuthStateListener(this)
@@ -71,7 +89,7 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        FirebaseApp.initializeApp(requireContext())
-        Log.d(TAG, "onCreate() called with: requireActivity() = ${requireActivity()}")
+        Log.d(Companion.TAG, "onCreate() called with: requireActivity() = ${requireActivity()}")
     }
 
     override fun onAuthStateChanged(auth: FirebaseAuth) {
@@ -84,7 +102,4 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
         }
     }
 
-    companion object {
-        private const val TAG = "First2Fragment"
-    }
 }

@@ -88,6 +88,8 @@ dependencies {
     // Add the dependency for the Firebase SDK for Google Analytics
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
+    // add firebase database
+    implementation 'com.google.firebase:firebase-database:20.1.0'
 
     // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-gradle-plugin
 //    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")

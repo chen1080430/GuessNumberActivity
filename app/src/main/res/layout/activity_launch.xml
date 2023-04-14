@@ -40,6 +40,8 @@
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/icon_avatar_tiger" />
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+        app:srcCompat="@drawable/icon_avatar_tiger"
+        android:background="@drawable/icon_avatar_tiger"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,73 +5,80 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.ImageView
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.mason.myapplication.databinding.ActivityProfileBinding
 
 class ProfileActivity : AppCompatActivity(), OnClickListener{
-    private lateinit var profileViewModel: ProfileViewModel
-    private lateinit var binding: ActivityProfileBinding
+    private var selectedIcon: Int = 0
+    private lateinit var imageViewList: List<ImageView>
+//    private lateinit var profileViewModel: ProfileViewModel
+   val profileViewModel by viewModels<ProfileViewModel>()
 
+    private lateinit var binding: ActivityProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+//        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        Log.i(TAG, "XXXXX> onViewCreated: profileViewModel = $profileViewModel")
 
-        binding.imageView1.setOnClickListener(this)
-        binding.imageView2.setOnClickListener(this)
-        binding.imageView3.setOnClickListener(this)
-        binding.imageView4.setOnClickListener(this)
-        binding.imageView5.setOnClickListener(this)
-        binding.imageView6.setOnClickListener(this)
-        binding.imageView7.setOnClickListener(this)
-        binding.imageView8.setOnClickListener(this)
-        binding.imageView9.setOnClickListener(this)
-        binding.imageView10.setOnClickListener(this)
-
+        imageViewList = listOf<ImageView>(
+            binding.imageView1,
+            binding.imageView2,
+            binding.imageView3,
+            binding.imageView4,
+            binding.imageView5,
+            binding.imageView6,
+            binding.imageView7,
+            binding.imageView8,
+            binding.imageView9,
+            binding.imageView10
+        )
+        imageViewList.forEach() {
+            it.setOnClickListener(this)
+        }
         binding.updateButton.setOnClickListener(this)
-
+        profileViewModel.usericon.observe(this){
+            Log.i(Companion.TAG, "XXXXX , profileViewModel update: usericon = $it")
+        }
+        profileViewModel.nickname.observe(this) {
+            Log.i(Companion.TAG, "XXXXX , profileViewModel update: nickname = $it")
+        }
     }
 
     override fun onClick(view: View?) {
-        //set background to imageview which is clicked.
-        var selectedIcon = 0
-
-        when(view) {
-            binding.imageView1 -> selectedIcon = 1
-            binding.imageView2 -> selectedIcon = 2
-            binding.imageView3 -> selectedIcon = 3
-            binding.imageView4 -> selectedIcon = 4
-            binding.imageView5 -> selectedIcon = 5
-            binding.imageView6 -> selectedIcon = 6
-            binding.imageView7 -> selectedIcon = 7
-            binding.imageView8 -> selectedIcon = 8
-            binding.imageView9 -> selectedIcon = 9
-            binding.imageView10 -> selectedIcon = 10
-            binding.updateButton -> {
-                Log.i(Companion.TAG, "onClick: update button clicked")
-                // get nickname from edittext
-                val nickname = binding.editTextTextPersonName.text.toString()
-                // update nickname in firebase
-                profileViewModel.updateNickname(nickname)
-
+        imageViewList.forEachIndexed { index, imageView ->
+            imageView.takeIf { it == view }?.let {
+                selectedIcon = index+1
+                run{ Log.d(TAG,"XXXXX imageview index: $selectedIcon") }
             }
         }
-        binding.imageView1.setBackgroundResource(if(selectedIcon==1) R.drawable.select_background else 0)
-        binding.imageView2.setBackgroundResource(if(selectedIcon==2) R.drawable.select_background else 0)
-        binding.imageView3.setBackgroundResource(if(selectedIcon==3) R.drawable.select_background else 0)
-        binding.imageView4.setBackgroundResource(if(selectedIcon==4) R.drawable.select_background else 0)
-        binding.imageView5.setBackgroundResource(if(selectedIcon==5) R.drawable.select_background else 0)
-        binding.imageView6.setBackgroundResource(if(selectedIcon==6) R.drawable.select_background else 0)
-        binding.imageView7.setBackgroundResource(if(selectedIcon==7) R.drawable.select_background else 0)
-        binding.imageView8.setBackgroundResource(if(selectedIcon==8) R.drawable.select_background else 0)
-        binding.imageView9.setBackgroundResource(if(selectedIcon==9) R.drawable.select_background else 0)
-        binding.imageView10.setBackgroundResource(if(selectedIcon==10) R.drawable.select_background else 0)
-
-        profileViewModel.updateIcon(selectedIcon)
-        Log.i(Companion.TAG, "onClick: auth = ${FirebaseAuth.getInstance()} , selectedIcon = $selectedIcon")
+        imageViewList.forEachIndexed { index, imageView ->
+            imageView.setBackgroundResource(if(selectedIcon==index+1) R.drawable.select_background else 0)
+        }
+        when(view) {
+            binding.updateButton -> {
+                Log.i(Companion.TAG, "XXXXX , onClick: update button clicked")
+                val nickname = binding.editTextTextPersonName.text.toString()
+                nickname.let {
+                    if (it.isEmpty()) {
+                        profileViewModel.updateIcon(selectedIcon)
+                    } else {
+                        profileViewModel.updateProfile(nickname, selectedIcon)
+                   }
+                }
+                // update nickname in firebase
+//                profileViewModel.updateNickname(nickname)
+//                profileViewModel.updateIcon(selectedIcon)
+//                profileViewModel.updateProfile(nickname, selectedIcon)
+            }
+        }
+        Log.i(Companion.TAG, "XXXXX , onClick: displayname = ${FirebaseAuth.getInstance().currentUser?.displayName} , selectedIcon = $selectedIcon")
     }
 
     companion object {

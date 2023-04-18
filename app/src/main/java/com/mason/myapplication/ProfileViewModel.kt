@@ -4,7 +4,11 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.CoroutineScope
 
 class ProfileViewModel : ViewModel(){
     var auth: FirebaseAuth
@@ -71,6 +75,35 @@ class ProfileViewModel : ViewModel(){
                 .setValue(nickname.value)
         }
         Log.i(TAG, "XXXXX> updateNickName: nickname: ${nickname.value}")
+    }
+
+    fun updateProfile(name : String, selectionIcon: Int) {
+
+        auth.currentUser?.uid?.let {
+
+
+            var userProfile = UserProfile().apply {
+                nickname=name
+                icon=selectionIcon
+            }
+            val childUpdates = mapOf<String, Any>(
+                "$it" to userProfile
+            )
+
+            var reference = FirebaseDatabase.getInstance().getReference("user")
+            reference.updateChildren(childUpdates).addOnCompleteListener{
+                    Log.d(TAG, "XXXXX> updateProfile: update profile complete.")
+                    nickname.value = name
+                    usericon.value = selectionIcon
+                }
+
+        }
+    }
+
+    fun testForUpdateIconLiveData(i: Int) {
+        Log.i(TAG, "XXXXX> testForUpdateIconLiveData: i: $i")
+//        usericon.value = i
+        usericon.postValue(i)
     }
 
 

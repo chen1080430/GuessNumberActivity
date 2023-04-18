@@ -7,7 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -17,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 import com.mason.myapplication.databinding.FragmentFirst2Binding
-import kotlin.math.log
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -25,7 +26,9 @@ import kotlin.math.log
 class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var profileViewModel: ProfileViewModel
+//    private lateinit var profileViewModel: ProfileViewModel
+    private val profileViewModel : ProfileViewModel by activityViewModels()
+
     //    private lateinit var loginViewModel: LoginViewModel
     private var _binding: FragmentFirst2Binding? = null
 
@@ -52,47 +55,35 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
 
         auth = FirebaseAuth.getInstance()
 //        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-/*
-        // viewmodel observer for nickname
-        profileViewModel.nickname.observe(viewLifecycleOwner) {
-            Log.d(Companion.TAG, "nickname observer called : $it")
-            binding.textviewWelcome1.setText("Hi! $it")
-        }
-*/
-/*
-        // viewmodel observer
-        profileViewModel.usericon.observe(viewLifecycleOwner) {icon ->
-            Log.d(Companion.TAG, "usericon observer called : $icon")
-            binding.imageViewAvatar.setImageResource(LaunchActivity.avatar[icon])
-        }
-*/
-//        binding.textviewWelcome1.setText("Hi! ${profileViewModel.auth.currentUser?.displayName}")
-//        binding.imageViewAvatar.setImageResource(getDrawable(this, LaunchActivity.avatar[profileViewModel.selectedIcon]))
-//        binding.imageViewAvatar.setImageResource(LaunchActivity.avatar[profileViewModel.selectedIcon])
+//        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
+        Log.i(TAG, "XXXXX> onViewCreated: profileViewModel = $profileViewModel")
         binding.buttonFirst.setOnClickListener {
-//            findNavController().navigate(R.id.action_First2Fragment_to_Second2Fragment)
-//            if (loginViewModel.login()) {
-            /*
-            requireActivity().also {
-                    startActivity(Intent(it, MainActivity::class.java))
+//            profileViewModel.testForUpdateIconLiveData(3)
+            startActivity(Intent(requireContext(), GuessNumberActivity::class.java))
         }
-            */
-/*
-            FirebaseDatabase.getInstance()
-                .getReference("user")
-                .child("auth1")
-                .child("test_child")
-                .setValue("test_value")
-                .addOnCompleteListener {
-                    Log.d(Companion.TAG, "Firebase Database set test value complete.")
-                    //create toast to show success
-                    Toast.makeText(requireContext(), "Firebase Database set test value complete.", Toast.LENGTH_SHORT).show()
-                }
-*/
+        profileViewModel.usericon.observe(requireActivity()){
+            Log.i(TAG, "XXXXX , profileViewModel update: usericon = $it")
+            binding.textviewTest.text = it.toString()
+        }
+        profileViewModel.nickname.observe(requireActivity()) {
+            Log.i(TAG, "XXXXX , profileViewModel update: nickname = $it")
+        }
+        binding.buttonProfile.setOnClickListener {
+            startActivity(Intent(requireContext(), ProfileActivity::class.java)
+                .putExtra("nickname", ""))
+        }
 
+        binding.buttonFrag2.setOnClickListener {
+//            findNavController().navigate(R.id.action_First2Fragment_to_Second2Fragment)
+            findNavController().navigate(R.id.action_First2Fragment_to_Second2Fragment)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i(TAG, "XXXXX> onResume: profileViewModel = $profileViewModel")
+
     }
 
     override fun onDestroyView() {
@@ -114,12 +105,14 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        FirebaseApp.initializeApp(requireContext())
         Log.d(Companion.TAG, "onCreate() called with: requireActivity() = ${requireActivity()}")
     }
 
     override fun onAuthStateChanged(auth: FirebaseAuth) {
         auth.currentUser?.uid?.let {
+
+            binding.buttonFirst.visibility = View.VISIBLE
+            binding.buttonProfile.visibility = View.VISIBLE
             var firebaseUser = FirebaseDatabase.getInstance().getReference("user")
                 .child(it)
             firebaseUser
@@ -170,6 +163,8 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
             Log.d(TAG, "XXXXX> onAuthStateChanged: no user login, show default icon and nickname.")
             binding.imageViewAvatar.setImageDrawable(resources.getDrawable(LaunchActivity.avatar[0]))
             binding.textviewWelcome1.setText(getString(R.string.welcome_please_login))
+            binding.buttonFirst.visibility = View.INVISIBLE
+            binding.buttonProfile.visibility = View.INVISIBLE
         }
     }
 

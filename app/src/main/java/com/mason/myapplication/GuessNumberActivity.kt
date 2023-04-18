@@ -5,22 +5,23 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.View.OnClickListener
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mason.myapplication.databinding.ActivityMainBinding
-import kotlin.math.absoluteValue
 
 
-class MainActivity : AppCompatActivity() {
+class GuessNumberActivity : AppCompatActivity() {
+    companion object {
+        private const val TAG = "GuessNumberActivity"
+    }
 
-    private val TAG:String="MainActivity"
+//    private lateinit var profileViewModel: ProfileViewModel
+    val profileViewModel by viewModels<ProfileViewModel>()
     private lateinit var binding: ActivityMainBinding
-    lateinit var viewModel : GuessViewModel
+    val viewModel : GuessViewModel by viewModels<GuessViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity() {
 //        setContentView(R.layout.activity_main) // not work for binding
 
         val btnGuess = binding.buttonGuess
-        viewModel = ViewModelProvider(this).get(GuessViewModel::class.java)
         viewModel.counter.observe(this, Observer {
             binding.counter.setText(it.toString())
             Log.d(TAG, "it: $it")
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                         })
                         .setNeutralButton("Save", DialogInterface.OnClickListener { dialogInterface, i ->
                             Intent().apply {
-                                setClass(this@MainActivity, RecordActivity::class.java)
+                                setClass(this@GuessNumberActivity, RecordActivity::class.java)
                                 putExtra("counter", viewModel.counter.value)
                                 startActivity(this)
                             }
@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnGuess.setOnClickListener {
-            Log.d(TAG, "onClick")
             if (binding.editTextNumber.text != null) {
                 binding.editTextNumber.text.toString().toIntOrNull()?.let { it1 ->
                     viewModel.guess(it1)

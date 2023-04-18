@@ -47,12 +47,12 @@
         android:id="@+id/update_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="80dp"
         android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <EditText
         android:id="@+id/editTextTextPersonName"
@@ -67,10 +67,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_nickname" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -83,8 +84,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/icon_avatar_bear"
-            />
+            android:src="@drawable/icon_avatar_bear" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -99,6 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/icon_avatar_cow" />
+
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="0dp"
@@ -112,30 +113,35 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/icon_avatar_lion" />
+
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/icon_avatar_monkey" />
+
         <ImageView
             android:id="@+id/imageView7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/icon_avatar_panda" />
+
         <ImageView
             android:id="@+id/imageView8"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/icon_avatar_pig" />
+
         <ImageView
             android:id="@+id/imageView9"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/icon_avatar_rabbit" />
+
         <ImageView
             android:id="@+id/imageView10"
             android:layout_width="0dp"

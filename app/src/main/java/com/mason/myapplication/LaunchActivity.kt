@@ -29,7 +29,6 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
     private val RC_SIGN_IN: Int = 100
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityLaunchBinding
-    lateinit var loginViewModel : LoginViewModel
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,59 +43,29 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-//        var loginViewModel = LoginViewModel()
-        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-
         auth = FirebaseAuth.getInstance()
 
         binding.fab.setOnClickListener { view ->
-//            Snackbar.make(
-//                view, (if (isLogin(auth)) {
-//                    "You are already signin, do you want to sign out?"
-//                } else {
-//                    "Sign out"
-//                }), Snackbar.LENGTH_LONG
-//            )
-//                .setAction("Action", null).show()
-//            if (loginViewModel.login()) {
-//                Log.w(Companion.TAG, "onCreate: login success" )
-//                startActivity(Intent(this, MainActivity::class.java))
-//            }
-
-            // print auth data
-            Log.d(TAG, "onCreate: auth: $auth , currentUser: ${auth.currentUser}" +
-                    ", displayname: ${auth.currentUser?.displayName}" +
-                    ", email: ${auth.currentUser?.email}")
-
-//            auth.signOut()
             //build a alertdialog
             val builder = AlertDialog.Builder(this)
             builder.setTitle(auth.currentUser?.run {"Hi ${auth.currentUser?.displayName ?: "Guest"}"} ?: run { "Login in"  })
             builder.setMessage(auth.currentUser?.run {"Email:${auth.currentUser?.email} \nDo you want to sign out?}"}?:run {"Please login to continue"})
             builder.setNegativeButton(auth.currentUser?.run { "Signout"  }?:run { "Login"}) { dialog, which ->
-                // Perform login
-//            if (loginViewModel.login()) {
-//                Log.w(Companion.TAG, "onCreate: login success" )
-//                startActivity(Intent(this, MainActivity::class.java))
-//            }
-//                if (auth.currentUser != null) {
-//                    Log.d(TAG, "onCreate: auth: $auth , currentUser: ${auth.currentUser}")
-//                    auth.signOut()
-//                }
                 auth.currentUser?.run {
-//                    Log.d(TAG, "onCreate: auth: $auth , currentUser: ${auth.currentUser}")
                     auth.signOut()
                 } ?: run {
                     signup()
                 }
-                Log.d(TAG, "onNegativeButton: onClick , ${auth.currentUser?.run { "signOut."}?: run{"signup / login."} }")
+                Log.d(TAG, "XXXXX > onNegativeButton: onClick , ${auth.currentUser?.run { "signOut."}?: run{"signup / login."} }")
             }
-            builder.setPositiveButton("Icon", object : DialogInterface.OnClickListener{
-                override fun onClick(p0: DialogInterface?, p1: Int) {
-                    //create dialog that can input number
-                    startActivity(Intent(this@LaunchActivity, ProfileActivity::class.java))
-                    return
+            auth.currentUser?.run {
+                builder.setPositiveButton("Icon", object : DialogInterface.OnClickListener {
+                    override fun onClick(p0: DialogInterface?, p1: Int) {
+                        //create dialog that can input number
+                        startActivity(Intent(this@LaunchActivity, ProfileActivity::class.java))
+                        return
 
+                        /*
                     val builder = AlertDialog.Builder(this@LaunchActivity)
                     builder.setTitle("Input icon number")
                     builder.setMessage("Please input icon number")
@@ -129,10 +98,12 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
                         }
                     })
                     builder.show()
-                }
-            })
+                     */
+                    }
+                })
+            }
             builder.show()
-            Log.w(TAG, "onCreate: auth: $auth , currentUser : ${auth.currentUser}" )
+            Log.w(TAG, "XXXXX > onCreate: auth: $auth , currentUser : ${auth.currentUser}" )
 
         }
     }
@@ -180,7 +151,7 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
                 .child("icon")
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        Log.d(TAG, "onAuthStateChanged() get icon value complete. icon: ${snapshot.value}")
+                        Log.d(TAG, "XXXXX > onAuthStateChanged() get icon value complete. icon: ${snapshot.value}")
                         snapshot.value?.let {
                             binding.fab.setImageDrawable(
                                 resources.getDrawable(
@@ -199,17 +170,6 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
                         Log.d(TAG, "onAuthStateChanged() get icon value error. error: ${error.message}")
                     }
                 }
-    //            .addListenerForSingleValueEvent(object : ValueEventListener {
-    //                override fun onDataChange(snapshot: DataSnapshot) {
-    //                    Log.d(TAG, "onAuthStateChanged() get icon value complete. icon: ${snapshot.value}")
-    //                    binding.fab.setImageDrawable(resources.getDrawable(
-    //                        avatar[snapshot.value.toString().toInt()], null))
-    //                }
-    //
-    //                override fun onCancelled(error: DatabaseError) {
-    //                    Log.d(TAG, "onAuthStateChanged() get icon value error. error: ${error.message}")
-    //                }
-    //            }
                 )
         }
 
@@ -217,17 +177,10 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
             Log.w(Companion.TAG, "onAuthStateChanged: login success , currentUser= ${auth.currentUser} , " +
                     "uid: ${auth.currentUser?.uid}" )
         } ?: run {
-//            Log.w(Companion.TAG, "onAuthStateChanged: login success , currentUser= ${auth.currentUser} , " +
-//                    "uid: ${auth.currentUser?.uid}" )
             Log.w(TAG, "onAuthStateChanged: please sign up" )
 //            signup()
         }
     }
-
-    private fun isLogin(auth: FirebaseAuth) :Boolean{
-        return auth.currentUser != null
-    }
-
     private fun signup() {
         startActivityForResult(
             AuthUI.getInstance().createSignInIntentBuilder()

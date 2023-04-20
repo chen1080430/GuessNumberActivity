@@ -2,6 +2,7 @@ package com.mason.myapplication
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
@@ -26,6 +27,7 @@ import com.mason.myapplication.databinding.ActivityLaunchBinding
 
 class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
+    private val REQUEST_CODE_SMS_PERMISSION: Int = 101
     private val RC_SIGN_IN: Int = 100
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityLaunchBinding
@@ -105,6 +107,42 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
             builder.show()
             Log.w(TAG, "XXXXX > onCreate: auth: $auth , currentUser : ${auth.currentUser}" )
 
+        }
+
+        //get RECEIVE_SMS permission
+        if (grantSmsPermission().also {
+            Log.d(TAG, "XXXXX > onCreate: grantSmsPermission: $it" )
+            } ) {
+            //start smsReceiver
+
+        }
+    }
+
+    private fun grantSmsPermission() : Boolean {
+        // check sms permission
+        val smsPermission = android.Manifest.permission.RECEIVE_SMS
+        val grant = checkCallingOrSelfPermission(smsPermission)
+        if (grant != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            // request permission
+            requestPermissions(arrayOf(smsPermission), REQUEST_CODE_SMS_PERMISSION)
+        }
+        return grant == android.content.pm.PackageManager.PERMISSION_GRANTED
+//        return true
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            REQUEST_CODE_SMS_PERMISSION -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // 權限已獲得，執行相應操作
+                    Log.d(TAG, "XXXXX> onRequestPermissionsResult: permission granted.")
+                } else {
+                    // 權限被拒絕
+                    Log.d(TAG, "XXXXX> onRequestPermissionsResult: permission denied.")
+                }
+            }
+            // ...
         }
     }
 

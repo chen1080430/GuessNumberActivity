@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.mason.myapplication.databinding.FragmentSecondBinding
+import kotlinx.coroutines.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -45,7 +46,10 @@ class SecondFragment : Fragment() {
 
         // create recycler view to print out all records
 
-        AsyncTask.execute() {
+        //create coroutine scope
+        var coroutineScope = CoroutineScope(Dispatchers.IO)
+        coroutineScope.launch {
+//        AsyncTask.execute() {
             var db = Room.databaseBuilder(
                 requireContext(),
                 GameDatabases::class.java,
@@ -56,12 +60,18 @@ class SecondFragment : Fragment() {
 
             recordAdapter.recordList = records
 //            recordAdapter.notifyDataSetChanged()
-            binding.recyclerviewRecord.post {
+            // run on main thread
+            withContext(Dispatchers.Main) {
                 binding.recyclerviewRecord.layoutManager = LinearLayoutManager(requireContext())
                 binding.recyclerviewRecord.adapter = recordAdapter
             }
+//            binding.recyclerviewRecord.post {
+//                binding.recyclerviewRecord.layoutManager = LinearLayoutManager(requireContext())
+//                binding.recyclerviewRecord.adapter = recordAdapter
+//            }
 //            binding.recyclerviewRecord.layoutManager = LinearLayoutManager(requireContext())
 //            binding.recyclerviewRecord.adapter = recordAdapter
+//        }
         }
 
 //        binding.recyclerviewRecord.layoutManager = LinearLayoutManager(requireContext())

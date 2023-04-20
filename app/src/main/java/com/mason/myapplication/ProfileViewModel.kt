@@ -106,6 +106,29 @@ class ProfileViewModel : ViewModel(){
         usericon.postValue(i)
     }
 
+    fun getUserProfile() {
+        auth.currentUser?.uid?.let {
+            FirebaseDatabase.getInstance().getReference("user")
+                .child(it)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        Log.d(TAG, "XXXXX> getUserProfile: onDataChange: snapshot: $snapshot")
+                        snapshot.child("nickname").value?.let {
+                            nickname.value = it.toString()
+                        }
+                        snapshot.child("icon").value?.let {
+                            usericon.value = it.toString().toInt()
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.d(TAG, "XXXXX> getUserProfile: onCancelled: ${error.message}")
+                    }
+                })
+
+        }
+    }
+
 
     companion object {
         private const val TAG = "ProfileViewModel"

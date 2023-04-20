@@ -14,8 +14,8 @@ android {
         applicationId "com.mason.myapplication"
         minSdk 30
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 1001
+        versionName "n_1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -94,4 +94,6 @@ dependencies {
     // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-gradle-plugin
 //    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
 
+    // coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
 }

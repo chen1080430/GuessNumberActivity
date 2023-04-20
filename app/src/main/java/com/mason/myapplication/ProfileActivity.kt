@@ -44,10 +44,20 @@ class ProfileActivity : AppCompatActivity(), OnClickListener{
         }
         binding.updateButton.setOnClickListener(this)
         profileViewModel.usericon.observe(this){
-            Log.i(Companion.TAG, "XXXXX , profileViewModel update: usericon = $it")
+            Log.i(TAG, "XXXXX , profileViewModel update: usericon = $it")
         }
         profileViewModel.nickname.observe(this) {
-            Log.i(Companion.TAG, "XXXXX , profileViewModel update: nickname = $it")
+            Log.i(TAG, "XXXXX , profileViewModel update: nickname = $it")
+        }
+        profileViewModel.getUserProfile()
+        profileViewModel.usericon.observe(this) {
+            selectedIcon = it
+            imageViewList.forEachIndexed { index, imageView ->
+                imageView.setBackgroundResource(if (selectedIcon == index + 1) R.drawable.select_background else 0)
+            }
+        }
+        profileViewModel.nickname.observe(this) {
+            binding.editTextTextPersonName.setText(it)
         }
     }
 
@@ -63,7 +73,7 @@ class ProfileActivity : AppCompatActivity(), OnClickListener{
         }
         when(view) {
             binding.updateButton -> {
-                Log.i(Companion.TAG, "XXXXX , onClick: update button clicked")
+                Log.i(TAG, "XXXXX , onClick: update button clicked")
                 val nickname = binding.editTextTextPersonName.text.toString()
                 nickname.let {
                     if (it.isEmpty()) {
@@ -78,7 +88,7 @@ class ProfileActivity : AppCompatActivity(), OnClickListener{
 //                profileViewModel.updateProfile(nickname, selectedIcon)
             }
         }
-        Log.i(Companion.TAG, "XXXXX , onClick: displayname = ${FirebaseAuth.getInstance().currentUser?.displayName} , selectedIcon = $selectedIcon")
+        Log.i(TAG, "XXXXX , onClick: displayname = ${FirebaseAuth.getInstance().currentUser?.displayName} , selectedIcon = $selectedIcon")
     }
 
     companion object {

@@ -11,6 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mason.myapplication.databinding.FragmentFirstBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -40,17 +43,21 @@ class FirstFragment : Fragment() {
 
         binding.buttonFirst.setOnClickListener {
 //            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-            AsyncTask.execute {
+            var coroutineScope = CoroutineScope(Dispatchers.IO)
+            coroutineScope.launch {
+//                AsyncTask.execute {
                 val name = binding.editTextPersonName.text.toString()
                 // run by async task
                 val record = Record(name, counterFromMain)
                 Log.d(
-                    Companion.TAG, "onViewCreated: name: $name, counter: $counterFromMain")
+                    Companion.TAG, "onViewCreated: name: $name, counter: $counterFromMain"
+                )
                 val db = Room.databaseBuilder(
                     requireContext(),
                     GameDatabases::class.java, "games.db"
                 ).build()
                 db.recordDao().insert(record)
+//                }
             }
         }
 

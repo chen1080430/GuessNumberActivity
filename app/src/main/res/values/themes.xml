@@ -4,6 +4,9 @@
     <style name="NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">?colorPrimaryVariant</item>
+        <item name="colorPrimaryVariant">#3DBC98</item>
+        <item name="colorPrimary">#7DCD74</item>
     </style>
 
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

@@ -1,1 +1,5 @@
 /build
+*KotlinTest*
+*DS_Store*
+app/release/
+app/debug/

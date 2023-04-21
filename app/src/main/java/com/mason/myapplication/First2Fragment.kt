@@ -74,8 +74,7 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
                 .putExtra("nickname", ""))
         }
 
-        binding.buttonFrag2.setOnClickListener {
-//            findNavController().navigate(R.id.action_First2Fragment_to_Second2Fragment)
+        binding.buttonAllMessage.setOnClickListener {
             findNavController().navigate(R.id.action_First2Fragment_to_Second2Fragment)
         }
     }

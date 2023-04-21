@@ -22,7 +22,7 @@ class SmsReceiver : BroadcastReceiver() {
                 // 解析每一個簡訊
                 for (i in pdus.indices) {
                     val smsMessage = SmsMessage.createFromPdu(pdus[i] as ByteArray)
-                    
+
                     val messageBody = smsMessage.messageBody
                     val messageFrom = smsMessage.originatingAddress
 

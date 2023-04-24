@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+<!--    <uses-permission android:name="android.permission.READ_SMS" />-->
+<!--    <uses-permission android:name="android.permission.RECEIVE_SMS" />-->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -37,13 +38,13 @@
             android:name=".GuessNumberActivity"
             android:exported="true"></activity>
 
-        <receiver android:name=".SmsReceiver"
-            android:exported="true">
-<!--            android:permission="android.permission.BROADCAST_SMS">-->
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
+<!--        <receiver android:name=".SmsReceiver"-->
+<!--            android:exported="true">-->
+<!--&lt;!&ndash;            android:permission="android.permission.BROADCAST_SMS">&ndash;&gt;-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.provider.Telephony.SMS_RECEIVED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
     </application>
 
 </manifest>

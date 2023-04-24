@@ -75,7 +75,7 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
         }
 
         binding.buttonAllMessage.setOnClickListener {
-            findNavController().navigate(R.id.action_First2Fragment_to_Second2Fragment)
+            findNavController().navigate(R.id.action_First2Fragment_to_AboutFragment)
         }
     }
 

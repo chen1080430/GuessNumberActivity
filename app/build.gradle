@@ -14,8 +14,8 @@ android {
         applicationId "com.mason.myapplication"
         minSdk 30
         targetSdk 33
-        versionCode 1100
-        versionName "n_1.0"
+        versionCode 1101
+        versionName "n_1.001"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

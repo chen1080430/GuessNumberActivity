@@ -50,7 +50,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_welcome" />
+        app:layout_constraintTop_toBottomOf="@id/textview_welcome"
+        app:layout_constraintVertical_bias="0.2" />
 
     <Button
         android:id="@+id/button_profile"
@@ -60,10 +61,9 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_welcome"
-        app:layout_constraintVertical_bias="0.675" />
+        app:layout_constraintTop_toBottomOf="@+id/button_first"
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
         android:id="@+id/button_all_message"
@@ -72,10 +72,20 @@
         android:text="@string/privacy_police"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_profile"
-        app:layout_constraintVertical_bias="0.244" />
+        app:layout_constraintVertical_bias="0.1" />
+
+    <Button
+        android:id="@+id/button_admob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/admob_test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_all_message"
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/textview_test"

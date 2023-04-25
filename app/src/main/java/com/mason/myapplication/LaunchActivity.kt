@@ -18,12 +18,16 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.firebase.ui.auth.AuthUI
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mason.myapplication.databinding.ActivityLaunchBinding
+import java.util.*
 
 class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
@@ -32,6 +36,8 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityLaunchBinding
     private lateinit var auth: FirebaseAuth
+
+    var mInterstitialAd: InterstitialAd? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +51,20 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+        MobileAds.initialize(this) {}
+//        val testDeviceIds = Arrays.asList("33BE2250B43518CCDA7DE426D04EE231")
+//        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
+//        MobileAds.setRequestConfiguration(configuration)
+
         auth = FirebaseAuth.getInstance()
 
         binding.fab.setOnClickListener { view ->
+
+            if (mInterstitialAd != null) {
+                mInterstitialAd?.show(this)
+            } else {
+                Log.d("TAG", "The interstitial ad wasn't ready yet.")
+            }
             //build a alertdialog
             val builder = AlertDialog.Builder(this)
             builder.setTitle(auth.currentUser?.run {"Hi ${auth.currentUser?.displayName ?: "Guest"}"} ?: run { "Login in"  })
@@ -116,6 +133,51 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
             //start smsReceiver
 
         }
+
+        var adRequest = AdRequest.Builder().build()
+
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                adError?.toString()?.let { Log.d(TAG, it) }
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                Log.d(TAG, "XXXXX> Ad was loaded.")
+                mInterstitialAd = interstitialAd
+            }
+        })
+
+        mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+            override fun onAdClicked() {
+                // Called when a click is recorded for an ad.
+                Log.d(TAG, "Ad was clicked.")
+            }
+
+            override fun onAdDismissedFullScreenContent() {
+                // Called when ad is dismissed.
+                Log.d(TAG, "Ad dismissed fullscreen content.")
+                mInterstitialAd = null
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                // Called when ad fails to show.
+                Log.e(TAG, "Ad failed to show fullscreen content.")
+                mInterstitialAd = null
+            }
+
+            override fun onAdImpression() {
+                // Called when an impression is recorded for an ad.
+                Log.d(TAG, "Ad recorded an impression.")
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                // Called when ad is shown.
+                Log.d(TAG, "Ad showed fullscreen content.")
+            }
+        }
+
+
     }
 
     private fun grantSmsPermission() : Boolean {

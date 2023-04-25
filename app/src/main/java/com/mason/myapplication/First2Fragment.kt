@@ -77,6 +77,16 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
         binding.buttonAllMessage.setOnClickListener {
             findNavController().navigate(R.id.action_First2Fragment_to_AboutFragment)
         }
+        binding.buttonAdmob.setOnClickListener{
+            findNavController().navigate(R.id.action_First2Fragment_to_AdMobFragment)
+
+/*
+            Log.w(TAG, "XXXXX> onViewCreated: requireActivity: ${requireActivity()} ")
+            (requireActivity() as LaunchActivity).mInterstitialAd?.let {
+                it.show(requireActivity())
+            } ?: run { Log.d("TAG", "The interstitial ad wasn't ready yet.") }
+*/
+        }
     }
 
     override fun onResume() {

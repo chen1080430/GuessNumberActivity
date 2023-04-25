@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_First2Fragment_to_AboutFragment"
             app:destination="@id/AboutFragment" />
+        <action
+            android:id="@+id/action_First2Fragment_to_AdMobFragment"
+            app:destination="@id/AdMobFragment" />
     </fragment>
     <fragment
         android:id="@+id/Second2Fragment"
@@ -33,6 +36,17 @@
 
         <action
             android:id="@+id/action_AboutFragment_to_First2Fragment"
+            app:destination="@id/First2Fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AdMobFragment"
+        android:name="com.mason.myapplication.admob.AdMobFragment"
+        android:label="@string/admob_test"
+        tools:layout="@layout/fragment_ad_mob">
+
+        <action
+            android:id="@+id/action_AdmobFragment_to_First2Fragment"
             app:destination="@id/First2Fragment" />
     </fragment>
 </navigation>

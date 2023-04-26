@@ -31,6 +31,7 @@ import java.util.*
 
 class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
+    private lateinit var mAdView: AdView
     private val REQUEST_CODE_SMS_PERMISSION: Int = 101
     private val RC_SIGN_IN: Int = 100
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -134,8 +135,41 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
         }
 
+        mAdView = binding.adView
         var adRequest = AdRequest.Builder().build()
+//        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
 
+        mAdView.adListener = object: AdListener() {
+            override fun onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            override fun onAdClosed() {
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+            }
+
+            override fun onAdFailedToLoad(adError : LoadAdError) {
+                // Code to be executed when an ad request fails.
+            }
+
+            override fun onAdImpression() {
+                // Code to be executed when an impression is recorded
+                // for an ad.
+            }
+
+            override fun onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            override fun onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+        }
+
+/*
         InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 adError?.toString()?.let { Log.d(TAG, it) }
@@ -176,6 +210,8 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
                 Log.d(TAG, "Ad showed fullscreen content.")
             }
         }
+
+         */
 
 
     }

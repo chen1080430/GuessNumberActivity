@@ -26,8 +26,9 @@ import kotlinx.coroutines.CoroutineScope
 class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
 
     private lateinit var auth: FirebaseAuth
-//    private lateinit var profileViewModel: ProfileViewModel
-    private val profileViewModel : ProfileViewModel by activityViewModels()
+
+    //    private lateinit var profileViewModel: ProfileViewModel
+    private val profileViewModel: ProfileViewModel by activityViewModels()
 
     //    private lateinit var loginViewModel: LoginViewModel
     private var _binding: FragmentFirst2Binding? = null
@@ -62,7 +63,7 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
 //            profileViewModel.testForUpdateIconLiveData(3)
             startActivity(Intent(requireContext(), GuessNumberActivity::class.java))
         }
-        profileViewModel.usericon.observe(requireActivity()){
+        profileViewModel.usericon.observe(requireActivity()) {
             Log.i(TAG, "XXXXX , profileViewModel update: usericon = $it")
             binding.textviewTest.text = it.toString()
         }
@@ -70,14 +71,16 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
             Log.i(TAG, "XXXXX , profileViewModel update: nickname = $it")
         }
         binding.buttonProfile.setOnClickListener {
-            startActivity(Intent(requireContext(), ProfileActivity::class.java)
-                .putExtra("nickname", ""))
+            startActivity(
+                Intent(requireContext(), ProfileActivity::class.java)
+                    .putExtra("nickname", "")
+            )
         }
 
         binding.buttonAllMessage.setOnClickListener {
             findNavController().navigate(R.id.action_First2Fragment_to_AboutFragment)
         }
-        binding.buttonAdmob.setOnClickListener{
+        binding.buttonAdmob.setOnClickListener {
             findNavController().navigate(R.id.action_First2Fragment_to_AdMobFragment)
 
 /*
@@ -86,6 +89,9 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
                 it.show(requireActivity())
             } ?: run { Log.d("TAG", "The interstitial ad wasn't ready yet.") }
 */
+        }
+        binding.buttonYoubike.setOnClickListener {
+            findNavController().navigate(R.id.action_First2Fragment_to_ItemFragment)
         }
     }
 

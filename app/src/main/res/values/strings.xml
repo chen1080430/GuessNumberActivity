@@ -66,6 +66,10 @@
     For more information, see https://support.google.com/admob/answer/3052638
 <!- -->
     <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+    <!--    <string name="interstitial_ad_unit_id">ca-app-pub-7308531999042814/5668038651</string>-->
 
-<!--    <string name="interstitial_ad_unit_id">ca-app-pub-7308531999042814/5668038651</string>-->
+    <string name="youbike_fragment">Youbike</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="youbike_realtime_data">新北市即時 Youbike2.0 動態：</string>
+
 </resources>

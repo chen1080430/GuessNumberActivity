@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_First2Fragment_to_AdMobFragment"
             app:destination="@id/AdMobFragment" />
+        <action
+            android:id="@+id/action_First2Fragment_to_ItemFragment"
+            app:destination="@id/ItemFragment" />
     </fragment>
     <fragment
         android:id="@+id/Second2Fragment"
@@ -47,6 +50,16 @@
 
         <action
             android:id="@+id/action_AdmobFragment_to_First2Fragment"
+            app:destination="@id/First2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ItemFragment"
+        android:name="com.mason.myapplication.YoubikeFragment"
+        android:label="@string/youbike_fragment"
+        tools:layout="@layout/fragment_youbike">
+
+        <action
+            android:id="@+id/action_YoubikeFragment_to_First2Fragment"
             app:destination="@id/First2Fragment" />
     </fragment>
 </navigation>

@@ -1,5 +1,7 @@
 package com.mason.myapplication
 
+//import okhttp3.*
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,27 +11,22 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
+import com.mason.myapplication.data.RetrofitManager
 import com.mason.myapplication.data.Youbike2RealtimeItem
 import com.mason.myapplication.databinding.FragmentYoubikeBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.Call
-//import okhttp3.*
-import java.io.IOException
-import java.net.URL
-import kotlin.system.measureTimeMillis
-import kotlin.time.ExperimentalTime
-import okhttp3.logging.HttpLoggingInterceptor
-
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.time.ExperimentalTime
 
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -49,20 +46,12 @@ class YoubikeFragment : Fragment() {
 //    .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
 //    .build()
 
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    // create a list to store Youbike2RealtimeItem
 
     var bikeList = ArrayList<Youbike2RealtimeItem>()
+//    var bikeList = List<Youbike2RealtimeItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -89,6 +78,7 @@ class YoubikeFragment : Fragment() {
     }
 
     private fun loadYoubikeInfo() {
+        /*
         CoroutineScope(Dispatchers.IO).launch {
 
             // 建立Request，設置連線資訊
@@ -118,7 +108,7 @@ class YoubikeFragment : Fragment() {
             }
             Log.d(TAG, "XXXXX> Gson youBike in 板橋: ${bikeList.size} ")
 //            Log.d(TAG, "XXXXX> Gson YouBike in 新北: ${bikeList.size} ")
-            /*
+            *//*
             call.enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                 }
@@ -129,14 +119,57 @@ class YoubikeFragment : Fragment() {
                     Log.d("OkHttp result", result)
                 }
             })
-            */
+            *//*
 
             // update ui view
             CoroutineScope(Dispatchers.Main).launch {
                 youbikeRVAdapter.updateData(bikeList)
             }
         }.let { Log.d(TAG, "XXXXX> okHttp. measureTimeMillis: $it") }
+*/
+        bikeList.clear()
+        Log.d(TAG, "XXXXX>  YouBike size: ${bikeList.size} ")
 
+        CoroutineScope(Dispatchers.IO).launch {
+            val myAPIService = RetrofitManager.instance.myApi
+
+            // 3. 建立連線的Call，此處設置call為myAPIService中的getAlbums()連線
+
+            // 3. 建立連線的Call，此處設置call為myAPIService中的getAlbums()連線
+            val call = myAPIService.allBikeStop
+
+            // 4. 執行call
+
+            // 4. 執行call
+            call.enqueue(object : Callback<List<Youbike2RealtimeItem?>> {
+                override fun onResponse(
+                    call: retrofit2.Call<List<Youbike2RealtimeItem?>>,
+                    response: Response<List<Youbike2RealtimeItem?>>
+                ) {
+                    // 連線成功
+                    // 回傳的資料已轉成Youbike2RealtimeItem物件，可直接用get方法取得特定欄位
+                    response.body()?.forEach {bikeStop ->
+                        bikeStop!!.sarea.takeIf { it=="板橋區" }?.let {
+                            bikeList.add(bikeStop)
+                        }
+
+//                        Log.d(TAG,"Youbike2RealtimeItem it: $it")
+//                        bikeList.add(it!!)
+
+                    }
+                    Log.d(TAG, "XXXXX> Gson YouBike in 板橋: ${bikeList.size} ")
+                    CoroutineScope(Dispatchers.Main).launch {
+                        youbikeRVAdapter.updateData(bikeList)
+                    }
+                }
+
+                override fun onFailure(call: retrofit2.Call<List<Youbike2RealtimeItem?>>, t: Throwable?) {
+                    // 連線失敗
+                    Log.d(TAG, "XXXXX> onFailure: 連線失敗")
+                }
+            })
+
+        }
 
 /*
         Thread(Runnable {
@@ -222,24 +255,6 @@ class YoubikeFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment YoubikeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            YoubikeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-
         private const val TAG = "YoubikeFragment"
     }
 }

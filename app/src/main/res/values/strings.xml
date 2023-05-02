@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Guess Number 1</string>
+    <string name="app_name">Guess Number</string>
     <string name="title_activity_record">RecordActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -72,4 +72,6 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="youbike_realtime_data">新北市即時 Youbike2.0 動態：</string>
 
+    <string name="menu_profile">Profule</string>
+    <string name="menu_policy">Policy</string>
 </resources>

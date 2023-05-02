@@ -17,6 +17,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
@@ -46,11 +47,18 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         binding = ActivityLaunchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
+//        setSupportActionBar(binding.toolbar)
+        var navView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_content_launch)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+//        appBarConfiguration = AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.First2Fragment, R.id.AboutFragment, R.id.YoubikeFragment
+            )
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
 
         MobileAds.initialize(this) {}
 //        val testDeviceIds = Arrays.asList("33BE2250B43518CCDA7DE426D04EE231")

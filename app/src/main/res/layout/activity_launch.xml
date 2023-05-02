@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LaunchActivity">
+<!--
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -23,6 +24,7 @@
             app:popupTheme="@style/PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
+-->
 
     <include
         android:id="@+id/include"
@@ -39,7 +41,7 @@
         android:layout_centerHorizontal="true"
         app:adSize="BANNER"
         app:adUnitId="ca-app-pub-3940256099942544/6300978111"
-        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 <!--        app:adUnitId="ca-app-pub-7308531999042814/8508543154"-->
@@ -53,10 +55,22 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         app:srcCompat="@drawable/icon_avatar_tiger"
         android:background="@drawable/icon_avatar_tiger"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

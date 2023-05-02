@@ -21,11 +21,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:paddingStart="32dp"
-        android:paddingEnd="32dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/welcome1"
-        android:textSize="24sp"
+        android:textSize="30sp"
+        android:inputType="textMultiLine"
+        android:maxLines="3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView_avatar"
+        app:layout_constraintWidth="wrap_content_constrained"
         app:layout_constraintTop_toTopOf="@+id/imageView_avatar" />
 
     <TextView
@@ -36,6 +39,7 @@
         android:layout_marginEnd="32dp"
         android:text="@string/welcome"
         android:textSize="20sp"
+        android:maxLines="5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.38"
@@ -93,13 +97,13 @@
         android:id="@+id/button_youbike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#FF9800"
         android:text="@string/youbike_fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_admob"
-        app:layout_constraintVertical_bias="0.1"
-        android:backgroundTint="#FF9800"/>
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/textview_test"

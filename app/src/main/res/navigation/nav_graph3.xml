@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/YoubikeFragment"
-        android:name="com.mason.myapplication.YoubikeFragment"
+        android:name="com.mason.myapplication.youbike.YoubikeFragment"
         android:label="@string/youbike_fragment"
         tools:layout="@layout/fragment_youbike">
 

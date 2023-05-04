@@ -1,4 +1,4 @@
-package com.mason.myapplication
+package com.mason.myapplication.youbike
 
 //import okhttp3.*
 
@@ -7,19 +7,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter.FilterListener
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
+import com.mason.myapplication.R
 import com.mason.myapplication.data.RetrofitManager
 import com.mason.myapplication.data.Youbike2RealtimeItem
 import com.mason.myapplication.databinding.FragmentYoubikeBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.Call
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import retrofit2.Callback
 import retrofit2.Response
 import kotlin.time.ExperimentalTime
@@ -33,10 +33,11 @@ import kotlin.time.ExperimentalTime
  * Use the [YoubikeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class YoubikeFragment : Fragment() {
+class YoubikeFragment : Fragment(), FilterListener {
     private lateinit var youbikeRVAdapter: YoubikeRecyclerViewAdapter
     private lateinit var rvYoubike: RecyclerView
     private lateinit var binding: FragmentYoubikeBinding
+    private lateinit var youbikeViewModel : YoubikeViewModel
     val youbike2RealtimeURL =
         "https://data.ntpc.gov.tw/api/datasets/010e5b15-3823-4b20-b401-b1cf000550c5/json?size=1000000"
 
@@ -67,14 +68,43 @@ class YoubikeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        youbikeViewModel = YoubikeViewModel()
         rvYoubike = binding.recyclerviewYoubike
         youbikeRVAdapter = YoubikeRecyclerViewAdapter()
         rvYoubike.adapter = youbikeRVAdapter
+        youbikeRVAdapter.setFilterListener(this)
         rvYoubike.layoutManager = LinearLayoutManager(requireContext())
         bikeList.clear()
 
         loadYoubikeInfo()
+        youbikeRVAdapter.updateFilter("板橋區")
 
+        youbikeViewModel.filterListSize.observe(viewLifecycleOwner) {
+            Log.d(TAG, "XXXXX> filterListSize: $it")
+            binding.textViewYoubikeTitle.text = getString(R.string.youbike_realtime_data)+" $it"
+        }
+
+
+        var searchViewYoubike = binding.searchViewYoubike
+        searchViewYoubike.isIconifiedByDefault = false
+        searchViewYoubike.setOnClickListener{
+            Log.d(TAG, "XXXXX> onClick: ")
+
+        }
+        searchViewYoubike.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener,
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                Log.d(TAG, "XXXXX> onQueryTextSubmit: $query")
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d(TAG, "XXXXX> onQueryTextChange: $newText")
+                youbikeRVAdapter.updateFilter(newText ?: "")
+                return false
+            }
+        })
     }
 
     private fun loadYoubikeInfo() {
@@ -149,17 +179,19 @@ class YoubikeFragment : Fragment() {
                     // 連線成功
                     // 回傳的資料已轉成Youbike2RealtimeItem物件，可直接用get方法取得特定欄位
                     response.body()?.forEach {bikeStop ->
-                        bikeStop!!.sarea.takeIf { it=="板橋區" }?.let {
-                            bikeList.add(bikeStop)
-                        }
+//                        bikeStop!!.sarea.takeIf { it=="板橋區" }?.let {
+//                            bikeList.add(bikeStop)
+//                        }
 
-//                        Log.d(TAG,"Youbike2RealtimeItem it: $it")
-//                        bikeList.add(it!!)
+//                        Log.d(TAG,"Youbike2RealtimeItem bikeStop: bikeStop")
+                        bikeList.add(bikeStop!!)
 
                     }
                     Log.d(TAG, "XXXXX> Gson YouBike in 板橋: ${bikeList.size} ")
                     CoroutineScope(Dispatchers.Main).launch {
                         youbikeRVAdapter.updateData(bikeList)
+//                        delay(1000L)
+//                        youbikeRVAdapter.updateFilter("板橋區")
                     }
                 }
 
@@ -256,5 +288,10 @@ class YoubikeFragment : Fragment() {
 
     companion object {
         private const val TAG = "YoubikeFragment"
+    }
+
+    override fun onFilterComplete(p0: Int) {
+        Log.d(TAG, "XXXXX> onFilterComplete: list.size: $p0")
+        youbikeViewModel.filterListSize.value = p0
     }
 }

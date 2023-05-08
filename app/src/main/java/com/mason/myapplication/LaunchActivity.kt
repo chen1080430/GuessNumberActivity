@@ -5,6 +5,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.EditText
 import android.widget.FrameLayout.LayoutParams
 import android.widget.ImageView
@@ -58,6 +62,14 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+//        binding.root.viewTreeObserver.addOnGlobalLayoutListener (object : ViewTreeObserver.OnGlobalLayoutListener{
+//            override fun onGlobalLayout() {
+//                Log.d(TAG, "XXXXX> onCreate: actionBar: $actionBar")
+//                Log.d(TAG, "XXXXX> onCreate: supportActionBar: $supportActionBar")
+//                binding.root.viewTreeObserver.removeOnGlobalLayoutListener(this)
+//            }
+//        })
 
         MobileAds.initialize(this) {}
 //        val testDeviceIds = Arrays.asList("33BE2250B43518CCDA7DE426D04EE231")

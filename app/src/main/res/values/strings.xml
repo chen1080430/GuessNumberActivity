@@ -74,4 +74,5 @@
 
     <string name="menu_profile">Profule</string>
     <string name="menu_policy">Policy</string>
+    <string name="youbike_searchview_query_hint">輸入以搜尋站點</string>
 </resources>

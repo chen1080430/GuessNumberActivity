@@ -4,9 +4,7 @@ package com.mason.myapplication.youbike
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Filter.FilterListener
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -34,6 +32,7 @@ import kotlin.time.ExperimentalTime
  * create an instance of this fragment.
  */
 class YoubikeFragment : Fragment(), FilterListener {
+    private lateinit var searchViewYoubike: SearchView
     private lateinit var youbikeRVAdapter: YoubikeRecyclerViewAdapter
     private lateinit var rvYoubike: RecyclerView
     private lateinit var binding: FragmentYoubikeBinding
@@ -85,12 +84,9 @@ class YoubikeFragment : Fragment(), FilterListener {
         }
 
 
-        var searchViewYoubike = binding.searchViewYoubike
+        searchViewYoubike = binding.searchViewYoubike
         searchViewYoubike.isIconifiedByDefault = false
-        searchViewYoubike.setOnClickListener{
-            Log.d(TAG, "XXXXX> onClick: ")
 
-        }
         searchViewYoubike.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener,
             SearchView.OnQueryTextListener {
@@ -178,20 +174,18 @@ class YoubikeFragment : Fragment(), FilterListener {
                 ) {
                     // 連線成功
                     // 回傳的資料已轉成Youbike2RealtimeItem物件，可直接用get方法取得特定欄位
-                    response.body()?.forEach {bikeStop ->
-//                        bikeStop!!.sarea.takeIf { it=="板橋區" }?.let {
-//                            bikeList.add(bikeStop)
-//                        }
+                    response.body()?.forEach { bikeStop ->
+                        bikeStop!!.sarea.takeIf { it == "板橋區" }?.let {
+                            bikeList.add(bikeStop)
+                        }
 
 //                        Log.d(TAG,"Youbike2RealtimeItem bikeStop: bikeStop")
-                        bikeList.add(bikeStop!!)
-
+//                        bikeList.add(bikeStop!!)
                     }
                     Log.d(TAG, "XXXXX> Gson YouBike in 板橋: ${bikeList.size} ")
                     CoroutineScope(Dispatchers.Main).launch {
                         youbikeRVAdapter.updateData(bikeList)
-//                        delay(1000L)
-//                        youbikeRVAdapter.updateFilter("板橋區")
+                        searchViewYoubike.setQuery("四維", true)
                     }
                 }
 

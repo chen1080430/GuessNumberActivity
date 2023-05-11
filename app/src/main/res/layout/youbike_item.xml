@@ -12,25 +12,28 @@
         android:layout_height="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintVertical_bias="0.15"
         app:srcCompat="@drawable/icon_avatar_bear" />
 
     <TextView
         android:id="@+id/textView_sna"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_width="64dp"
+        android:layout_height="24dp"
+        android:maxLines="3"
         android:text="站點名稱"
-        android:textSize="16sp"
         android:textColor="?android:attr/textColorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView_bike"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintLeft_toLeftOf="@id/imageView_bike"
         app:layout_constraintStart_toEndOf="@+id/imageView_bike"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.227"
+        app:layout_constraintWidth="wrap_content_constrained" />
 
     <ImageView
         android:id="@+id/imageView_sbi"
@@ -38,56 +41,55 @@
         android:layout_height="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageView_bike"
-        app:layout_constraintTop_toTopOf="@id/imageView_bike"
+        app:layout_constraintTop_toBottomOf="@+id/textView_sna"
         app:layout_constraintVertical_bias="0.8"
         app:srcCompat="@drawable/icon_avatar_cat" />
+
     <TextView
         android:id="@+id/textView_sbi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:layout_marginStart="16dp"
         android:text="可借"
-        android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@id/imageView_sbi"
-        app:layout_constraintTop_toTopOf="@id/imageView_bike"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.8"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintStart_toEndOf="@id/imageView_sbi"
+        app:layout_constraintTop_toBottomOf="@+id/textView_sna"
+        app:layout_constraintVertical_bias="0.786" />
 
     <ImageView
         android:id="@+id/imageView_rbi"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/textView_sbi"
-        app:layout_constraintTop_toTopOf="@id/imageView_bike"
-        app:layout_constraintVertical_bias="0.8"
+        app:layout_constraintTop_toBottomOf="@+id/textView_sna"
+        app:layout_constraintVertical_bias="0.789"
         app:srcCompat="@drawable/icon_avatar_tiger" />
 
     <TextView
         android:id="@+id/textView_rbi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="可還"
         android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@id/imageView_rbi"
-        app:layout_constraintTop_toTopOf="@id/imageView_bike"
+        android:text="可還"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.8"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintStart_toEndOf="@id/imageView_rbi"
+        app:layout_constraintTop_toBottomOf="@+id/textView_sna"
+        app:layout_constraintVertical_bias="0.8" />
 
     <TextView
         android:id="@+id/textView_sarea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="區域"
-        android:textSize="14sp"
-        android:textColor="?android:attr/textColorSecondary"
         android:layout_marginStart="32dp"
-        app:layout_constraintStart_toEndOf="@id/textView_rbi"
-        app:layout_constraintTop_toTopOf="@id/imageView_bike"
+        android:text="區域"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textView_rbi"
+        app:layout_constraintTop_toBottomOf="@+id/textView_sna"
         app:layout_constraintVertical_bias="0.8" />
 </androidx.constraintlayout.widget.ConstraintLayout>

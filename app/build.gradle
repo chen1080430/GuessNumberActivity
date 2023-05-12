@@ -40,6 +40,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
 }
 
 dependencies {
@@ -47,7 +51,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    def lifecycle_version = "2.6.1"
+    def lifecycle_version = "2.6.0"
 
 // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
@@ -107,4 +111,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
 
+    // for testing
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+//    testImplementation "android.arch.core:core-testing:1.1.1"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1'
+    testImplementation "io.mockk:mockk:1.13.5"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
 }

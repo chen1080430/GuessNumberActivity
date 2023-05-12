@@ -1,6 +1,7 @@
 package com.mason.myapplication
 
 import android.util.Log
+import androidx.lifecycle.*
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -13,6 +14,7 @@ class GuessViewModel : ViewModel() {
     // create init block
     init {
 //        Log.d(TAG, "init: secretNumber: $secretNumber , guessCount: $guessCount")
+        Log.d(TAG, "XXXXX> GuessViewModel init.\n counter.value: ${counter.value}")
         reset()
     }
 
@@ -44,6 +46,7 @@ class GuessViewModel : ViewModel() {
         secretNumber = (1..10).random()
         guessCount = 0
         counter.value = 0
+        gameResult.value = GameResult.BIGGER
         Log.d(TAG, "reset: secretNumber: $secretNumber , guessCount: $guessCount")
     }
 

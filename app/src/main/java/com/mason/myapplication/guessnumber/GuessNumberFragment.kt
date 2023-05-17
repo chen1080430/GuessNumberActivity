@@ -10,12 +10,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.mason.myapplication.GuessViewModel
 import com.mason.myapplication.R
 import com.mason.myapplication.databinding.FragmentGuessNumberBinding
 
 class GuessNumberFragment : Fragment() {
 
+    private var bingoDialog: AlertDialog? = null
     private lateinit var _binding: FragmentGuessNumberBinding
     private val binding get() = _binding
     val viewModel: GuessViewModel by activityViewModels<GuessViewModel>()
@@ -42,17 +42,17 @@ class GuessNumberFragment : Fragment() {
         }
 
         binding.buttonGuess.setOnClickListener {
-                if (binding.editTextNumber.text != null) {
-                    binding.editTextNumber.text.toString().toIntOrNull()?.let { it1 ->
-                        viewModel.guess(it1)
-                    }
-                }
-
-//            binding.editTextNumber.text?.apply {
-//                toString().toIntOrNull()?.let { it1 ->
-//                    viewModel.guess(it1)
+//                if (binding.editTextNumber.text != null) {
+//                    binding.editTextNumber.text.toString().toIntOrNull()?.let { it1 ->
+//                        viewModel.guess(it1)
+//                    }
 //                }
-//            }
+
+            binding.editTextNumber.text?.apply {
+                toString().toIntOrNull()?.let { it1 ->
+                    viewModel.guess(it1)
+                }
+            }
         }
 
         viewModel.gameResult.observe(requireActivity()){
@@ -65,27 +65,31 @@ class GuessNumberFragment : Fragment() {
                 }
                 GuessViewModel.GameResult.CORRECT -> {
                     Toast.makeText(requireActivity(), "Correct", Toast.LENGTH_SHORT).show()
-                    AlertDialog.Builder(requireActivity())
-                        .setTitle("Game Result")
-                        .setMessage("You got the answer in ${viewModel.counter.value} times.")
-                        .setPositiveButton("OK", DialogInterface.OnClickListener { dialogInterface, i ->
-                            binding.editTextNumber.setText("")
-                        })
-                        .setNeutralButton("Save", DialogInterface.OnClickListener { dialogInterface, i ->
-//                            Intent().apply {
-//                                setClass(this@, RecordActivity::class.java)
-//                                putExtra("counter", viewModel.counter.value)
-//                                startActivity(this)
-//                            }
-                            findNavController().navigate(R.id.save_name)
-                            dialogInterface.dismiss()
-                            viewModel.gameResult.value = null
-                        })
-                        .show()
-
+                    showBingoDialog()
                 }
             }
         }
+    }
+
+    fun showBingoDialog() {
+        bingoDialog?.dismiss()
+        bingoDialog = AlertDialog.Builder(requireActivity())
+            .setTitle("Game Result")
+            .setMessage("You got the answer in ${viewModel.counter.value} times.")
+            .setPositiveButton(
+                getString(R.string.save),
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    viewModel.gameResult.value = null
+                    dialogInterface.dismiss()
+                    findNavController().navigate(R.id.save_name)
+                })
+            .setNeutralButton(
+                getString(R.string.ok),
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    binding.editTextNumber.setText("")
+                }).create()
+
+        bingoDialog!!.show()
     }
 
 }

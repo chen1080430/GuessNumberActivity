@@ -1,4 +1,4 @@
-package com.mason.myapplication
+package com.mason.myapplication.guessnumber
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
+import com.mason.myapplication.R
 import com.mason.myapplication.databinding.FragmentSavenameBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -52,7 +53,7 @@ class SaveNameFragment : Fragment() {
                 // run by async task
                 val record = Record(name, counter)
                 Log.d(
-                    Companion.TAG, "onViewCreated: name: $name, counter: $counter"
+                    TAG, "onViewCreated: name: $name, counter: $counter"
                 )
                 val db = Room.databaseBuilder(
                     requireContext(),

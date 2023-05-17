@@ -1,4 +1,4 @@
-package com.mason.myapplication
+package com.mason.myapplication.guessnumber
 
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.mason.myapplication.R
 import com.mason.myapplication.databinding.FragmentRecordBinding
 import kotlinx.coroutines.*
 
@@ -124,7 +125,7 @@ class RecordFragment : Fragment() {
                     .getAll()
             recordList.forEach {
                 Log.d(
-                    Companion.TAG,
+                    TAG,
                     "onStart: id: ${it.id}, name: ${it.name}, counter: ${it.counter}"
                 )
 

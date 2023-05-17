@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="com.mason.myapplication.GuessViewModel" />
+            type="com.mason.myapplication.guessnumber.GuessViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SaveNameFragment">
+        tools:context=".guessnumber.SaveNameFragment">
 
         <TextView
             android:id="@+id/textview_first"

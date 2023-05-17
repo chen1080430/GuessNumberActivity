@@ -2,6 +2,7 @@ package com.mason.myapplication
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.mason.myapplication.guessnumber.GuessViewModel
 import io.mockk.*
 import org.junit.After
 import org.junit.Assert.*

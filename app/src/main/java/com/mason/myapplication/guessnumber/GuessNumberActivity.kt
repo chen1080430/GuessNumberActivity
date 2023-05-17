@@ -1,4 +1,4 @@
-package com.mason.myapplication
+package com.mason.myapplication.guessnumber
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -10,8 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import com.mason.myapplication.R
 import com.mason.myapplication.databinding.ActivityMainBinding
 
 

@@ -24,7 +24,7 @@
             android:name=".ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".RecordActivity"
+            android:name=".guessnumber.RecordActivity"
             android:exported="false"
             android:label="@string/title_activity_record"
             android:theme="@style/NoActionBar" />
@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GuessNumberActivity"
+            android:name=".guessnumber.GuessNumberActivity"
             android:exported="true" />
     </application>
 

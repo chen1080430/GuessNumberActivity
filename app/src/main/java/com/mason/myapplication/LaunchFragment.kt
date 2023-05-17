@@ -15,19 +15,20 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.mason.myapplication.databinding.FragmentLaunchBinding
 
-import com.mason.myapplication.databinding.FragmentFirst2Binding
+import com.mason.myapplication.guessnumber.RecordActivity
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
+class LaunchFragment : Fragment() , FirebaseAuth.AuthStateListener {
 
     private lateinit var auth: FirebaseAuth
 
     private val profileViewModel: ProfileViewModel by activityViewModels()
 
-    private var _binding: FragmentFirst2Binding? = null
+    private var _binding: FragmentLaunchBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -39,13 +40,13 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
     ): View? {
 
 //        _binding = FragmentFirst2Binding.inflate(inflater, container, false)
-        _binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_first2, container, false)
+        _binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_launch, container, false)
         return binding.root
 
     }
 
     companion object {
-        private const val TAG = "First2Fragment"
+        private const val TAG = "LaunchFragment"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

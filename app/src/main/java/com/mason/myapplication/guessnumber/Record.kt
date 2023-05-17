@@ -1,4 +1,4 @@
-package com.mason.myapplication
+package com.mason.myapplication.guessnumber
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo

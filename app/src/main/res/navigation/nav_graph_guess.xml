@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/SavenameFragment"
-        android:name="com.mason.myapplication.SaveNameFragment"
+        android:name="com.mason.myapplication.guessnumber.SaveNameFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_savename">
 
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/RecordFragment"
-        android:name="com.mason.myapplication.RecordFragment"
+        android:name="com.mason.myapplication.guessnumber.RecordFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_record">
 
@@ -38,10 +38,12 @@
     </fragment>
     <action
         android:id="@+id/go_guess_number_page"
-        app:destination="@+id/GuessNumberFragment" />
+        app:destination="@+id/GuessNumberFragment"
+        app:popUpTo="@+id/GuessNumberFragment"
+        app:popUpToInclusive="true" />
     <!--    <activity-->
     <!--        android:id="@+id/guessNumberActivity"-->
-    <!--        android:name="com.mason.myapplication.GuessNumberActivity"-->
+    <!--        android:name="com.mason.myapplication.guessnumber.GuessNumberActivity"-->
     <!--        android:label="GuessNumberActivity"-->
     <!--        >-->
     <!--        <action-->

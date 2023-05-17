@@ -78,6 +78,7 @@
     <string name="show_all_record">Show All Record</string>
     <string name="please_enter_name">Your name</string>
     <string name="save">Save</string>
+    <string name="ok">OK</string>
     <string name="counter_record">Record counter: %s</string>
     <string name="counter_count">counter: %s</string>
 

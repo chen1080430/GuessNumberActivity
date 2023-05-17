@@ -7,7 +7,7 @@
 
         <variable
             name="guessViewModel"
-            type="com.mason.myapplication.GuessViewModel" />
+            type="com.mason.myapplication.guessnumber.GuessViewModel" />
     </data>
 
 
@@ -16,7 +16,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".GuessNumberActivity">
+        tools:context=".guessnumber.GuessNumberActivity">
 
         <Button
             android:id="@+id/button_guess"

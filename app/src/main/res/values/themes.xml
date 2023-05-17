@@ -7,6 +7,7 @@
         <item name="android:statusBarColor">?colorPrimaryVariant</item>
         <item name="colorPrimaryVariant">#3DBC98</item>
         <item name="colorPrimary">#7DCD74</item>
+        <item name="colorSecondary">#FFC107</item>
     </style>
 
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

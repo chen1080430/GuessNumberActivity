@@ -1,7 +1,6 @@
-package com.mason.myapplication
+package com.mason.myapplication.guessnumber
 
 import android.util.Log
-import androidx.lifecycle.*
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 

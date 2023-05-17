@@ -1,8 +1,9 @@
-package com.mason.myapplication
+package com.mason.myapplication.guessnumber
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.mason.myapplication.guessnumber.Record
 
 @Dao
 interface RecordDao {

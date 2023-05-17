@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
 import com.mason.myapplication.databinding.FragmentSavenameBinding
@@ -22,33 +23,36 @@ class SaveNameFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    val guessViewModel: GuessViewModel by activityViewModels<GuessViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentSavenameBinding.inflate(inflater, container, false)
+        _binding!!.apply {
+            viewModel = guessViewModel
+            lifecycleOwner = requireActivity()
+        }
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val intent = requireActivity().intent
-        var counterFromMain = intent.getIntExtra("counter", -1)
-        binding.textviewFirst.text = "Record counter: $counterFromMain"
 
-        binding.buttonFirst.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        binding.buttonSave.setOnClickListener {
             var coroutineScope = CoroutineScope(Dispatchers.IO)
+            val counter = guessViewModel.counter.value ?: -2
+
             coroutineScope.launch {
 //                AsyncTask.execute {
                 val name = binding.editTextPersonName.text.toString()
                 // run by async task
-                val record = Record(name, counterFromMain)
+                val record = Record(name, counter)
                 Log.d(
-                    Companion.TAG, "onViewCreated: name: $name, counter: $counterFromMain"
+                    Companion.TAG, "onViewCreated: name: $name, counter: $counter"
                 )
                 val db = Room.databaseBuilder(
                     requireContext(),
@@ -59,9 +63,9 @@ class SaveNameFragment : Fragment() {
             }
         }
 
-        binding.buttonFrag2.setOnClickListener({
+        binding.buttonShowAll.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        })
+        }
     }
 
     override fun onDestroyView() {

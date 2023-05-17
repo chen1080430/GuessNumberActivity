@@ -51,8 +51,6 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="show_all_messages">show messages</string>
     <string name="privacy_police">Privacy Police</string>
     <string name="admob_test">AdMob Test</string>
@@ -77,4 +75,10 @@
     <string name="youbike_searchview_query_hint">輸入以搜尋站點</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="show_all_record">Show All Record</string>
+    <string name="please_enter_name">Your name</string>
+    <string name="save">Save</string>
+    <string name="counter_record">Record counter: %s</string>
+    <string name="counter_count">counter: %s</string>
+
 </resources>

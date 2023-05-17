@@ -78,8 +78,11 @@ class GuessNumberFragment : Fragment() {
 //                                startActivity(this)
 //                            }
                             findNavController().navigate(R.id.save_name)
+                            dialogInterface.dismiss()
+                            viewModel.gameResult.value = null
                         })
                         .show()
+
                 }
             }
         }

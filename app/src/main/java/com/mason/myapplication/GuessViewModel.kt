@@ -38,7 +38,7 @@ class GuessViewModel : ViewModel() {
 
 
     // create secret number between 1 to 10
-    var secretNumber : Int = 0
+    var secretNumber: Int = 0
     var guessCount = 0
 
     //create reset secret number and guess count
@@ -46,7 +46,6 @@ class GuessViewModel : ViewModel() {
         secretNumber = (1..10).random()
         guessCount = 0
         counter.value = 0
-        gameResult.value = GameResult.BIGGER
         Log.d(TAG, "reset: secretNumber: $secretNumber , guessCount: $guessCount")
     }
 

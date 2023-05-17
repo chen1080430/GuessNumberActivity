@@ -8,8 +8,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.mason.myapplication.databinding.ActivityMainBinding
 
 
@@ -19,17 +21,23 @@ class GuessNumberActivity : AppCompatActivity() {
     }
 
 //    private lateinit var profileViewModel: ProfileViewModel
-    val profileViewModel by viewModels<ProfileViewModel>()
     private lateinit var binding: ActivityMainBinding
     val viewModel : GuessViewModel by viewModels<GuessViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+//        binding = ActivityMainBinding.inflate(layoutInflater).apply {
+//            guessViewModel = viewModel
+//            lifecycleOwner = this@GuessNumberActivity
+//        }
+        binding = DataBindingUtil.setContentView<ActivityMainBinding?>(this, R.layout.activity_main).apply {
+            lifecycleOwner = this@GuessNumberActivity
+            guessViewModel = viewModel
+        }
+
+//        setContentView(binding.root)
 //        setContentView(R.layout.activity_main) // not work for binding
 
-        val btnGuess = binding.buttonGuess
         viewModel.counter.observe(this, Observer {
             binding.counter.setText(it.toString())
             Log.d(TAG, "it: $it")
@@ -57,12 +65,13 @@ class GuessNumberActivity : AppCompatActivity() {
                                 putExtra("counter", viewModel.counter.value)
                                 startActivity(this)
                             }
+//                            findNavController().navigate()
                         })
                         .show()
                 }
             }
         }
-
+        val btnGuess = binding.buttonGuess
         btnGuess.setOnClickListener {
             if (binding.editTextNumber.text != null) {
                 binding.editTextNumber.text.toString().toIntOrNull()?.let { it1 ->
@@ -71,12 +80,11 @@ class GuessNumberActivity : AppCompatActivity() {
             }
 
             }
-        // btnGuess long click
-        btnGuess.setOnLongClickListener {
-            Log.d(TAG, "onLongClick btnGuess and reset")
-            viewModel.reset()
-            true
-        }
-
+        // replaced by databinding
+//        btnGuess.setOnLongClickListener {
+//            Log.d(TAG, "onLongClick btnGuess and reset")
+//            viewModel.reset()
+//            true
+//        }
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_guess"
+    app:startDestination="@id/GuessNumberFragment">
+
+    <fragment
+        android:id="@+id/GuessNumberFragment"
+        android:name="com.mason.myapplication.guessnumber.GuessNumberFragment"
+        android:label="@string/guess_fragment_label"
+        tools:layout="@layout/fragment_guess_number">
+
+        <action
+            android:id="@+id/save_name"
+            app:destination="@+id/SavenameFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/SavenameFragment"
+        android:name="com.mason.myapplication.SaveNameFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_savename">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/RecordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/RecordFragment"
+        android:name="com.mason.myapplication.RecordFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_record">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/SavenameFragment" />
+    </fragment>
+    <action
+        android:id="@+id/go_guess_number_page"
+        app:destination="@+id/GuessNumberFragment" />
+    <!--    <activity-->
+    <!--        android:id="@+id/guessNumberActivity"-->
+    <!--        android:name="com.mason.myapplication.GuessNumberActivity"-->
+    <!--        android:label="GuessNumberActivity"-->
+    <!--        >-->
+    <!--        <action-->
+    <!--            android:id="@+id/save_name"-->
+    <!--            app:destination="@id/FirstFragment" />-->
+    <!--    </activity>-->
+</navigation>

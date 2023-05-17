@@ -7,9 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -18,7 +17,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 import com.mason.myapplication.databinding.FragmentFirst2Binding
-import kotlinx.coroutines.CoroutineScope
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -27,10 +25,8 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
 
     private lateinit var auth: FirebaseAuth
 
-    //    private lateinit var profileViewModel: ProfileViewModel
     private val profileViewModel: ProfileViewModel by activityViewModels()
 
-    //    private lateinit var loginViewModel: LoginViewModel
     private var _binding: FragmentFirst2Binding? = null
 
     // This property is only valid between onCreateView and
@@ -42,7 +38,8 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentFirst2Binding.inflate(inflater, container, false)
+//        _binding = FragmentFirst2Binding.inflate(inflater, container, false)
+        _binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_first2, container, false)
         return binding.root
 
     }
@@ -55,13 +52,10 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
         super.onViewCreated(view, savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
-//        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-//        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
         Log.i(TAG, "XXXXX> onViewCreated: profileViewModel = $profileViewModel")
         binding.buttonFirst.setOnClickListener {
-//            profileViewModel.testForUpdateIconLiveData(3)
-            startActivity(Intent(requireContext(), GuessNumberActivity::class.java))
+            startActivity(Intent(requireContext(), RecordActivity::class.java))
         }
         profileViewModel.usericon.observe(requireActivity()) {
             Log.i(TAG, "XXXXX , profileViewModel update: usericon = $it")
@@ -82,13 +76,6 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
         }
         binding.buttonAdmob.setOnClickListener {
             findNavController().navigate(R.id.action_First2Fragment_to_AdMobFragment)
-
-/*
-            Log.w(TAG, "XXXXX> onViewCreated: requireActivity: ${requireActivity()} ")
-            (requireActivity() as LaunchActivity).mInterstitialAd?.let {
-                it.show(requireActivity())
-            } ?: run { Log.d("TAG", "The interstitial ad wasn't ready yet.") }
-*/
         }
         binding.buttonYoubike.setOnClickListener {
             findNavController().navigate(R.id.action_First2Fragment_to_ItemFragment)
@@ -108,19 +95,12 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
 
     override fun onStart() {
         super.onStart()
-        Log.d(Companion.TAG, "onStart() called")
-
         FirebaseAuth.getInstance().addAuthStateListener(this)
     }
 
     override fun onStop() {
         super.onStop()
         FirebaseAuth.getInstance().removeAuthStateListener(this)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d(Companion.TAG, "onCreate() called with: requireActivity() = ${requireActivity()}")
     }
 
     override fun onAuthStateChanged(auth: FirebaseAuth) {
@@ -134,10 +114,6 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
                 .child("icon")
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        Log.d(
-                            TAG,
-                            "XXXXX> onAuthStateChanged() get icon value complete. icon: ${snapshot.value}"
-                        )
                         snapshot.value?.let {
                             binding.imageViewAvatar.setImageDrawable(
                                 resources.getDrawable(
@@ -160,7 +136,6 @@ class First2Fragment : Fragment() , FirebaseAuth.AuthStateListener {
                 .child("nickname")
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        Log.d(TAG, "XXXXX> onAuthStateChanged() get nickname value complete. nickname: ${snapshot.value}")
                         snapshot.value?.let {
                             Log.d(TAG, "XXXXX> onDataChange: snapshot.value: ${snapshot.value}")
                             binding.textviewWelcome1.setText("Hi! ${snapshot.value}")

@@ -1,6 +1,5 @@
 package com.mason.myapplication
 
-import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,14 +11,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.mason.myapplication.databinding.FragmentSecondBinding
+import com.mason.myapplication.databinding.FragmentRecordBinding
 import kotlinx.coroutines.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
-    private var _binding: FragmentSecondBinding? = null
+class RecordFragment : Fragment() {
+    private var _binding: FragmentRecordBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -32,7 +31,7 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentRecordBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -42,6 +41,10 @@ class SecondFragment : Fragment() {
 
         binding.buttonFrag2.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        }
+
+        binding.buttonGuessAgain.setOnClickListener {
+            findNavController().navigate(R.id.go_guess_number_page)
         }
 
         // create recycler view to print out all records
@@ -56,7 +59,7 @@ class SecondFragment : Fragment() {
                 "games.db"
             ).build()
             var records = db.recordDao().getAll()
-            Log.d("SecondFragment", "onViewCreated: $records")
+            Log.d(TAG, "onViewCreated: $records")
 
             recordAdapter.recordList = records
 //            recordAdapter.notifyDataSetChanged()
@@ -104,8 +107,8 @@ class SecondFragment : Fragment() {
     }
 
     inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var name : TextView = itemView.findViewById(R.id.text_name)
-        var counter : TextView = itemView.findViewById(R.id.text_count)
+        var name: TextView = itemView.findViewById(R.id.text_name)
+        var counter: TextView = itemView.findViewById(R.id.text_count)
 //        var counter : TextView = itemView.text_counter
 
     }
@@ -135,6 +138,6 @@ class SecondFragment : Fragment() {
     }
 
     companion object {
-        private const val TAG = "SecondFragment"
+        private const val TAG = "RecordFragment"
     }
 }

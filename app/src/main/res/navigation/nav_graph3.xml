@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/First2Fragment"
         android:name="com.mason.myapplication.First2Fragment"
-        android:label="@string/guess_fragment_label"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_first2">
 
         <action
@@ -27,14 +27,14 @@
         android:label="@string/messages_fragment_label"
         tools:layout="@layout/fragment_second2">
 
-<!--        <action-->
-<!--            android:id="@+id/action_Second2Fragment_to_First2Fragment"-->
-<!--            app:destination="@id/First2Fragment" />-->
+        <!--        <action-->
+        <!--            android:id="@+id/action_Second2Fragment_to_First2Fragment"-->
+        <!--            app:destination="@id/First2Fragment" />-->
     </fragment>
     <fragment
         android:id="@+id/AboutFragment"
         android:name="com.mason.myapplication.about.AboutFragment"
-        android:label="@string/guess_fragment_label"
+        android:label="@string/about_fragment_label"
         tools:layout="@layout/fragment_about">
 
         <action

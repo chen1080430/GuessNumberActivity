@@ -2,14 +2,14 @@
     <string name="app_name">Guess Number</string>
     <string name="title_activity_record">RecordActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="guess_fragment_label">Guess Number</string>
+    <string name="first_fragment_label">Save Name Fragment</string>
+    <string name="second_fragment_label">Record Fragment</string>
     <string name="about_fragment_label">About Page</string>
     <string name="messages_fragment_label">Messages</string>
     <string name="next">Next</string>
     <string name="guess_number">Go Guess Number</string>
-    <string name="previous">Previous</string>
+    <string name="guess_again">Guess again</string>
     <string name="welcome">Welcome to Mason first Guess Number app</string>
     <string name="welcome_please_login">Please login in or signup first.</string>
     <string name="welcome1">Hi! </string>
@@ -69,10 +69,12 @@
     <!--    <string name="interstitial_ad_unit_id">ca-app-pub-7308531999042814/5668038651</string>-->
 
     <string name="youbike_fragment">Youbike</string>
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="youbike_realtime_data">新北市即時 Youbike2.0 動態：</string>
 
     <string name="menu_profile">Profule</string>
     <string name="menu_policy">Policy</string>
     <string name="youbike_searchview_query_hint">輸入以搜尋站點</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

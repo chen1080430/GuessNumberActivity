@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph3"
-    app:startDestination="@id/First2Fragment">
+    app:startDestination="@id/YoubikeFragment">
+<!--    app:startDestination="@id/First2Fragment">-->
 
     <fragment
         android:id="@+id/First2Fragment"
@@ -22,10 +23,10 @@
             app:destination="@id/AboutOfflineFragment" />
     </fragment>
     <fragment
-        android:id="@+id/Second2Fragment"
-        android:name="com.mason.myapplication.Second2Fragment"
+        android:id="@+id/MessageFragment"
+        android:name="com.mason.myapplication.MessageFragment"
         android:label="@string/messages_fragment_label"
-        tools:layout="@layout/fragment_second2">
+        tools:layout="@layout/fragment_message">
 
         <!--        <action-->
         <!--            android:id="@+id/action_Second2Fragment_to_First2Fragment"-->
@@ -78,9 +79,9 @@
             app:destination="@id/First2Fragment" />
     </fragment>
 
-    <action
-        android:id="@+id/go_launch_page"
-        app:destination="@id/First2Fragment"
-        app:popUpTo="@id/First2Fragment"
-        app:popUpToInclusive="true" />
+<!--    <action-->
+<!--        android:id="@+id/go_launch_page"-->
+<!--        app:destination="@id/First2Fragment"-->
+<!--        app:popUpTo="@id/First2Fragment"-->
+<!--        app:popUpToInclusive="true" />-->
 </navigation>

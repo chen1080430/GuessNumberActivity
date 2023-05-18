@@ -85,7 +85,7 @@ class YoubikeFragment : Fragment(), FilterListener {
 
 
         searchViewYoubike = binding.searchViewYoubike
-        searchViewYoubike.isIconifiedByDefault = false
+//        searchViewYoubike.isIconifiedByDefault = false
 
         searchViewYoubike.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener,

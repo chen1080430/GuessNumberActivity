@@ -41,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:queryHint="@string/youbike_searchview_query_hint"
+        android:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

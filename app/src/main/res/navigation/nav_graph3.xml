@@ -43,6 +43,17 @@
     </fragment>
 
     <fragment
+        android:id="@+id/AboutOfflineFragment"
+        android:name="com.mason.myapplication.about.AboutOfflineFragment"
+        android:label="@string/about_fragment_label"
+        tools:layout="@layout/fragment_about_offline">
+
+        <action
+            android:id="@+id/action_AboutFragment_to_First2Fragment"
+            app:destination="@id/First2Fragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/AdMobFragment"
         android:name="com.mason.myapplication.admob.AdMobFragment"
         android:label="@string/admob_test"
@@ -62,4 +73,10 @@
             android:id="@+id/action_YoubikeFragment_to_First2Fragment"
             app:destination="@id/First2Fragment" />
     </fragment>
+
+    <action
+        android:id="@+id/go_launch_page"
+        app:destination="@id/First2Fragment"
+        app:popUpTo="@id/First2Fragment"
+        app:popUpToInclusive="true" />
 </navigation>

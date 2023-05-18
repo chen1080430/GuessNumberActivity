@@ -57,7 +57,7 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 //        appBarConfiguration = AppBarConfiguration(navController.graph)
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.First2Fragment, R.id.AboutFragment, R.id.YoubikeFragment
+                R.id.First2Fragment, R.id.AboutOfflineFragment, R.id.YoubikeFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

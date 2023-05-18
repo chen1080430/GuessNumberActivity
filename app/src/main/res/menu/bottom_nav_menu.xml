@@ -11,8 +11,13 @@
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/youbike_fragment" />
 
+<!--    <item-->
+<!--        android:id="@+id/AboutFragment"-->
+<!--        android:icon="@drawable/ic_home_black_24dp"-->
+<!--        android:title="@string/menu_policy" />-->
+
     <item
-        android:id="@+id/AboutFragment"
+        android:id="@+id/AboutOfflineFragment"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/menu_policy" />
 

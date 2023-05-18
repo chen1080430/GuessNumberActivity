@@ -56,10 +56,11 @@
 
     <Button
         android:id="@+id/button_first"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/guess_number"
         android:visibility="invisible"
+        android:layout_marginHorizontal="@dimen/button_margin_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,10 +69,11 @@
 
     <Button
         android:id="@+id/button_profile"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Profile"
         android:visibility="invisible"
+        android:layout_marginHorizontal="@dimen/button_margin_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,9 +82,10 @@
 
     <Button
         android:id="@+id/button_all_message"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/privacy_police"
+        android:layout_marginHorizontal="@dimen/button_margin_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,9 +94,11 @@
 
     <Button
         android:id="@+id/button_admob"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/admob_test"
+        android:layout_marginHorizontal="@dimen/button_margin_horizontal"
+        android:backgroundTint="#BD2727"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,10 +107,11 @@
 
     <Button
         android:id="@+id/button_youbike"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#FF9800"
         android:text="@string/youbike_fragment"
+        android:layout_marginHorizontal="@dimen/button_margin_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

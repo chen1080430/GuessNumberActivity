@@ -43,5 +43,6 @@
     <string name="ok">OK</string>
     <string name="counter_record">Record counter: %s</string>
     <string name="counter_count">counter: %s</string>
+    <string name="about_show_online">Show Privacy Online</string>
 
 </resources>

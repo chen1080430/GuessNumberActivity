@@ -73,7 +73,8 @@ class LaunchFragment : Fragment() , FirebaseAuth.AuthStateListener {
         }
 
         binding.buttonAllMessage.setOnClickListener {
-            findNavController().navigate(R.id.action_First2Fragment_to_AboutFragment)
+            findNavController().navigate(R.id.action_First2Fragment_to_AboutOfflineFragment)
+
         }
         binding.buttonAdmob.setOnClickListener {
             findNavController().navigate(R.id.action_First2Fragment_to_AdMobFragment)
@@ -85,8 +86,6 @@ class LaunchFragment : Fragment() , FirebaseAuth.AuthStateListener {
 
     override fun onResume() {
         super.onResume()
-        Log.i(TAG, "XXXXX> onResume: profileViewModel = $profileViewModel")
-
     }
 
     override fun onDestroyView() {

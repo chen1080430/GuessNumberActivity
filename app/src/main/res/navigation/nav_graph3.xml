@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_launch">
 
         <action
-            android:id="@+id/action_First2Fragment_to_AboutFragment"
-            app:destination="@id/AboutFragment" />
-        <action
             android:id="@+id/action_First2Fragment_to_AdMobFragment"
             app:destination="@id/AdMobFragment" />
         <action
             android:id="@+id/action_First2Fragment_to_ItemFragment"
             app:destination="@id/YoubikeFragment" />
+        <action
+            android:id="@+id/action_First2Fragment_to_AboutOfflineFragment"
+            app:destination="@id/AboutOfflineFragment" />
     </fragment>
     <fragment
         android:id="@+id/Second2Fragment"
@@ -38,8 +38,8 @@
         tools:layout="@layout/fragment_about">
 
         <action
-            android:id="@+id/action_AboutFragment_to_First2Fragment"
-            app:destination="@id/First2Fragment" />
+            android:id="@+id/action_back"
+            app:destination="@id/AboutOfflineFragment" />
     </fragment>
 
     <fragment
@@ -51,6 +51,10 @@
         <action
             android:id="@+id/action_AboutFragment_to_First2Fragment"
             app:destination="@id/First2Fragment" />
+
+        <action
+            android:id="@+id/go_about_online"
+            app:destination="@id/AboutFragment" />
     </fragment>
 
     <fragment

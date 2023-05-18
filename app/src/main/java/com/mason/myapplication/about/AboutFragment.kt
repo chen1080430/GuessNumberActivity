@@ -1,13 +1,10 @@
 package com.mason.myapplication.about
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.webkit.WebView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.mason.myapplication.R
 import com.mason.myapplication.databinding.FragmentAboutBinding
 
 class AboutFragment : Fragment() {
@@ -24,16 +21,9 @@ class AboutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        val notificationsViewModel =
-//            ViewModelProvider(this).get(AboutViewModel::class.java)
 
         _binding = FragmentAboutBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        val textView: TextView = binding.textNotifications
-//        notificationsViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
 
         webView = binding.webView
 

@@ -21,6 +21,10 @@
         <action
             android:id="@+id/action_First2Fragment_to_AboutOfflineFragment"
             app:destination="@id/AboutOfflineFragment" />
+
+        <action
+            android:id="@+id/action_LaunchFragment_to_MessageFragment"
+            app:destination="@id/MessageFragment" />
     </fragment>
     <fragment
         android:id="@+id/MessageFragment"

@@ -1,14 +1,16 @@
 package com.mason.myapplication
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresPermission
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mason.myapplication.databinding.FragmentMessageBinding
 
@@ -24,8 +26,6 @@ class MessageFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val profileViewModel: ProfileViewModel by activityViewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,11 +34,6 @@ class MessageFragment : Fragment() {
         _binding = FragmentMessageBinding.inflate(inflater, container, false)
         return binding.root
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(Companion.TAG, "XXXXX> onResume: profileViewModel = $profileViewModel")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,6 +57,7 @@ class MessageFragment : Fragment() {
             }
     }
 
+//    @RequiresPermission(android.Manifest.permission.READ_SMS)
      fun readAllSms() {
 //         val tv = TypedValue()
 //         if (requireActivity().theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
@@ -109,6 +105,20 @@ class MessageFragment : Fragment() {
 
     private fun grantSmsPermission(): Boolean {
         // check sms permission
+/*
+        var checkSelfPermission = ActivityCompat.checkSelfPermission(
+            requireActivity(),
+            Manifest.permission.READ_SMS
+        )
+        if (checkSelfPermission != PackageManager.PERMISSION_GRANTED) {
+            // request permission
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.READ_SMS),
+                0
+            )
+        }
+*/
         val smsPermission = android.Manifest.permission.READ_SMS
         val grant = requireActivity().checkCallingOrSelfPermission(smsPermission)
         if (grant != android.content.pm.PackageManager.PERMISSION_GRANTED) {
@@ -117,12 +127,6 @@ class MessageFragment : Fragment() {
         }
         return grant == android.content.pm.PackageManager.PERMISSION_GRANTED
 //        return true
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
     }
 
     override fun onDestroyView() {

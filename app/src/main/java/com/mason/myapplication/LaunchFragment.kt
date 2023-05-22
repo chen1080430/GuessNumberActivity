@@ -73,7 +73,7 @@ class LaunchFragment : Fragment() , FirebaseAuth.AuthStateListener {
         }
 
         binding.buttonAllMessage.setOnClickListener {
-            findNavController().navigate(R.id.action_First2Fragment_to_AboutOfflineFragment)
+            findNavController().navigate(R.id.action_LaunchFragment_to_MessageFragment)
 
         }
         binding.buttonAdmob.setOnClickListener {

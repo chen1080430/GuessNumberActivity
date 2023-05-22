@@ -84,7 +84,7 @@
         android:id="@+id/button_all_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/privacy_police"
+        android:text="@string/show_all_messages"
         android:layout_marginHorizontal="@dimen/button_margin_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

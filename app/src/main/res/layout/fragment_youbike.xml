@@ -1,49 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".youbike.YoubikeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView_youbike_title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        android:textSize="20sp"
-        android:textColor="?android:attr/textColorPrimary"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/youbike_realtime_data" />
+    <data>
+        <variable
+            name="viewModel"
+            type="com.mason.myapplication.youbike.YoubikeViewModel" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_youbike"
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="300dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView_youbike_title"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHeight="match_constraint"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="60dp"
-        tools:itemCount="5"
-        tools:listitem="@layout/youbike_item"
-        />
+        android:layout_height="match_parent"
+        tools:context=".youbike.YoubikeFragment">
 
-    <SearchView
-        android:id="@+id/searchViewYoubike"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:queryHint="@string/youbike_searchview_query_hint"
-        android:iconifiedByDefault="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textView_youbike_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            android:textSize="20sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/youbike_realtime_data(viewModel.filterListSize)}" />
+<!--            android:text="@string/youbike_realtime_data" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_youbike"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="300dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView_youbike_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHeight="match_constraint"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="60dp"
+            tools:itemCount="5"
+            tools:listitem="@layout/youbike_item" />
+
+        <SearchView
+            android:id="@+id/searchViewYoubike"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:queryHint="@string/youbike_searchview_query_hint"
+            android:iconifiedByDefault="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

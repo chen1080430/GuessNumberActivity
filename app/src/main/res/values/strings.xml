@@ -30,7 +30,7 @@
     <!--    <string name="interstitial_ad_unit_id">ca-app-pub-7308531999042814/5668038651</string>-->
 
     <string name="youbike_fragment">Youbike</string>
-    <string name="youbike_realtime_data">新北市即時 Youbike2.0 動態：</string>
+    <string name="youbike_realtime_data">新北市即時 Youbike2.0 動態：%d</string>
 
     <string name="menu_profile">Profile</string>
     <string name="menu_policy">Policy</string>

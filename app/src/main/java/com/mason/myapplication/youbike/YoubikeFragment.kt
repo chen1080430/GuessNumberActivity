@@ -8,6 +8,7 @@ import android.view.*
 import android.widget.Filter.FilterListener
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mason.myapplication.R
@@ -36,7 +37,7 @@ class YoubikeFragment : Fragment(), FilterListener {
     private lateinit var youbikeRVAdapter: YoubikeRecyclerViewAdapter
     private lateinit var rvYoubike: RecyclerView
     private lateinit var binding: FragmentYoubikeBinding
-    private lateinit var youbikeViewModel : YoubikeViewModel
+    val youbikeViewModel by viewModels<YoubikeViewModel>()
     val youbike2RealtimeURL =
         "https://data.ntpc.gov.tw/api/datasets/010e5b15-3823-4b20-b401-b1cf000550c5/json?size=1000000"
 
@@ -60,6 +61,10 @@ class YoubikeFragment : Fragment(), FilterListener {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentYoubikeBinding.inflate(inflater, container, false)
+            .apply {
+                viewModel = youbikeViewModel
+                lifecycleOwner = viewLifecycleOwner
+            }
         return binding.root
     }
 
@@ -67,7 +72,7 @@ class YoubikeFragment : Fragment(), FilterListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        youbikeViewModel = YoubikeViewModel()
+//        youbikeViewModel = YoubikeViewModel()
         rvYoubike = binding.recyclerviewYoubike
         youbikeRVAdapter = YoubikeRecyclerViewAdapter()
         rvYoubike.adapter = youbikeRVAdapter
@@ -78,10 +83,10 @@ class YoubikeFragment : Fragment(), FilterListener {
         loadYoubikeInfo()
         youbikeRVAdapter.updateFilter("板橋區")
 
-        youbikeViewModel.filterListSize.observe(viewLifecycleOwner) {
-            Log.d(TAG, "XXXXX> filterListSize: $it")
-            binding.textViewYoubikeTitle.text = getString(R.string.youbike_realtime_data)+" $it"
-        }
+//        youbikeViewModel.filterListSize.observe(viewLifecycleOwner) {
+//            Log.d(TAG, "XXXXX> filterListSize: $it")
+//            binding.textViewYoubikeTitle.text = getString(R.string.youbike_realtime_data)+" $it"
+//        }
 
 
         searchViewYoubike = binding.searchViewYoubike

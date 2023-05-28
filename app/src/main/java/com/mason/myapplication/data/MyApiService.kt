@@ -1,5 +1,6 @@
 package com.mason.myapplication.data
 
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -14,7 +15,7 @@ interface MyAPIService {
     // 設置一個GET連線，路徑為albums/1
     // 取得的回傳資料用Albums物件接收，連線名稱取為getAlbums
     @get:GET("json?size=1000000")
-    val allBikeStop: Call<List<Youbike2RealtimeItem?>>
+    val allBikeStop: Call<List<Youbike2RealtimeItem>>
 
 //    @GET("albums/{id}")
 //    fun  // 用{}表示路徑參數，@Path會將參數帶入至該位置

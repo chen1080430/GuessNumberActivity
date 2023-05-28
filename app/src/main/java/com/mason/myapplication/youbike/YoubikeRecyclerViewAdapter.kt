@@ -18,9 +18,9 @@ class YoubikeRecyclerViewAdapter : RecyclerView.Adapter<YoubikeRecyclerViewAdapt
 
     private lateinit var mFilterListener: FilterListener
     private var filterString: String = ""
-    private var allbikeInfo = ArrayList<Youbike2RealtimeItem>()
-    private var newFilteredBikeInfo = ArrayList<Youbike2RealtimeItem>()
-    private var oldFilteredBikeInfo = ArrayList<Youbike2RealtimeItem>()
+    private var allbikeInfo = mutableListOf<Youbike2RealtimeItem>()
+    private var newFilteredBikeInfo = mutableListOf<Youbike2RealtimeItem>()
+    private var oldFilteredBikeInfo = mutableListOf<Youbike2RealtimeItem>()
     class YoubikeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
          var stopName: TextView
          var stopSbi: TextView
@@ -56,7 +56,7 @@ class YoubikeRecyclerViewAdapter : RecyclerView.Adapter<YoubikeRecyclerViewAdapt
         holder.stopArea.text = newFilteredBikeInfo[position].sarea
     }
 
-    fun updateData(bikeList: java.util.ArrayList<Youbike2RealtimeItem>) {
+    fun updateData(bikeList: MutableList<Youbike2RealtimeItem>) {
         Log.d(TAG, "XXXXX> updateData: bikeList: ${bikeList.size}")
         allbikeInfo = bikeList
 //        filter.filter(filterString)
@@ -64,6 +64,10 @@ class YoubikeRecyclerViewAdapter : RecyclerView.Adapter<YoubikeRecyclerViewAdapt
 //        notifyDataSetChanged()
     }
 
+    fun updateFilter() {
+        Log.d(TAG, "XXXXX> updateFilter: filterString: $filterString")
+        updateFilter(filterString?:"")
+    }
     fun updateFilter(word: String = "") {
         filterString = word
         filter.filter(filterString)
@@ -78,11 +82,11 @@ class YoubikeRecyclerViewAdapter : RecyclerView.Adapter<YoubikeRecyclerViewAdapt
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
                 Log.d(TAG, "XXXXX> performFiltering: charSearch: $charSearch")
-                newFilteredBikeInfo = ArrayList()
+                newFilteredBikeInfo = mutableListOf()
                 if (charSearch.isEmpty()) {
                     newFilteredBikeInfo = allbikeInfo
                 } else {
-                    val resultList = ArrayList<Youbike2RealtimeItem>()
+                    val resultList = mutableListOf<Youbike2RealtimeItem>()
                     for (row in allbikeInfo) {
                         if (row.sna.toLowerCase().contains(charSearch.toLowerCase())) {
                             resultList.add(row)
@@ -98,7 +102,7 @@ class YoubikeRecyclerViewAdapter : RecyclerView.Adapter<YoubikeRecyclerViewAdapt
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                newFilteredBikeInfo = results?.values as ArrayList<Youbike2RealtimeItem>
+                newFilteredBikeInfo = results?.values as MutableList<Youbike2RealtimeItem>
                 mFilterListener.onFilterComplete(newFilteredBikeInfo.size)
                 // use diffutil to compare mfilteredBikeInfo and allbikeInfo
                 val diffResult = DiffUtil.calculateDiff(YoubikeItemDiffCallback(oldFilteredBikeInfo, newFilteredBikeInfo))

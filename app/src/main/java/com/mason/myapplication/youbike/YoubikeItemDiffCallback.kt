@@ -4,8 +4,8 @@ import androidx.recyclerview.widget.DiffUtil
 import com.mason.myapplication.data.Youbike2RealtimeItem
 
 class YoubikeItemDiffCallback(
-    private var oldList: ArrayList<Youbike2RealtimeItem>,
-    private var newList: ArrayList<Youbike2RealtimeItem>
+    private var oldList: MutableList<Youbike2RealtimeItem>,
+    private var newList: MutableList<Youbike2RealtimeItem>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldList.size

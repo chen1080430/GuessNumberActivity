@@ -10,7 +10,7 @@
     <string name="next">Next</string>
     <string name="guess_number">Go Guess Number</string>
     <string name="guess_again">Guess again</string>
-    <string name="welcome">Welcome to Mason first Guess Number app</string>
+    <string name="welcome">Welcome to Mason first Guess Number app https://cloudconvert.com/svg-to-png</string>
     <string name="welcome_please_login">Please login in or signup first.</string>
     <string name="welcome1">Hi! </string>
 
@@ -26,11 +26,12 @@
     This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
     For more information, see https://support.google.com/admob/answer/3052638
 <!- -->
-    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
-    <!--    <string name="interstitial_ad_unit_id">ca-app-pub-7308531999042814/5668038651</string>-->
+<!--    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>-->
+        <string name="interstitial_ad_unit_id">ca-app-pub-7308531999042814/5668038651</string>
 
     <string name="youbike_fragment">Youbike</string>
     <string name="youbike_realtime_data">新北市即時 Youbike2.0 動態：%d</string>
+    <string name="youbike_update_timer">%d 秒後更新...</string>
 
     <string name="menu_profile">Profile</string>
     <string name="menu_policy">Policy</string>

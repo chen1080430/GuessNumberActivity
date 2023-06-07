@@ -1,21 +1,34 @@
 package com.mason.myapplication.youbike
 
+import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
-class YoubikeViewModel : ViewModel(){
+class YoubikeViewModel : ViewModel() {
 
-     val filterListSize = MutableLiveData<Int>(0)
+    val filterListSize = MutableLiveData<Int>(0)
 
-    //create livedata filterListSize to get filterList size
-//    var filterListSize = LiveData<Int>
-//        get() = _filterListSize
+    private val _timer = MutableLiveData<Int>(0)
+    val timer: LiveData<Int> = _timer
+    var timerCountung : CountDownTimer? = null
 
+    fun updateTimer() {
+        if (timerCountung != null) {
+            timerCountung?.cancel()
+        }
+        timerCountung = object : CountDownTimer(15000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                _timer.value = ((millisUntilFinished / 1000).toInt())
+            }
 
-//    var filterListSize = LiveData<Int>
-//        get() = _filterListSize
-
-
+            override fun onFinish() {
+                _timer.value = 0
+            }
+        }.start()
+    }
 
 }

@@ -24,6 +24,7 @@ import kotlinx.coroutines.withContext
 import kotlin.time.ExperimentalTime
 
 
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
@@ -103,18 +104,16 @@ class YoubikeFragment : Fragment(), FilterListener {
                 bikeStops.let {
                     bikeList.clear()
                     it?.forEach { bikeStop ->
-                        bikeStop.sarea.takeIf { area -> area == "板橋區" }?.let {
+//                        bikeStop.sarea.takeIf { area -> area == "板橋區" }?.let {
                             bikeList.add(bikeStop)
-                        }
+//                        }
                     }
-
                     Log.d(TAG, "XXXXX> Gson YouBike in 板橋: ${bikeList.size} ")
-
-                    withContext(Dispatchers.Main) {
-                        youbikeRVAdapter.updateData(bikeList)
-                    }
                 }
-
+                withContext(Dispatchers.Main) {
+                    youbikeRVAdapter.updateData(bikeList)
+                    youbikeViewModel.updateTimer()
+                }
                 delay(interval)
             }
         }

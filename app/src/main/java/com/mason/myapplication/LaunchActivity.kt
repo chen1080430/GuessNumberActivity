@@ -50,11 +50,9 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         binding = ActivityLaunchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        setSupportActionBar(binding.toolbar)
         var navView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_content_launch)
-//        appBarConfiguration = AppBarConfiguration(navController.graph)
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.First2Fragment, R.id.AboutOfflineFragment, R.id.YoubikeFragment
@@ -63,18 +61,7 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-//        binding.root.viewTreeObserver.addOnGlobalLayoutListener (object : ViewTreeObserver.OnGlobalLayoutListener{
-//            override fun onGlobalLayout() {
-//                Log.d(TAG, "XXXXX> onCreate: actionBar: $actionBar")
-//                Log.d(TAG, "XXXXX> onCreate: supportActionBar: $supportActionBar")
-//                binding.root.viewTreeObserver.removeOnGlobalLayoutListener(this)
-//            }
-//        })
-
         MobileAds.initialize(this) {}
-//        val testDeviceIds = Arrays.asList("33BE2250B43518CCDA7DE426D04EE231")
-//        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
-//        MobileAds.setRequestConfiguration(configuration)
 
         auth = FirebaseAuth.getInstance()
 
@@ -103,41 +90,6 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
                         //create dialog that can input number
                         startActivity(Intent(this@LaunchActivity, ProfileActivity::class.java))
                         return
-
-                        /*
-                    val builder = AlertDialog.Builder(this@LaunchActivity)
-                    builder.setTitle("Input icon number")
-                    builder.setMessage("Please input icon number")
-                    val editText = EditText(this@LaunchActivity)
-                    builder.setView(editText)
-
-                    var inflate = layoutInflater.inflate(R.layout.icon_select_layout, null, false)
-                    inflate.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-//                    builder.setView(inflate)
-
-                    var imageView = ImageView(this@LaunchActivity, null)
-//                    LayoutParams.MATCH_PARENT
-                    // create imageview which height and weight is match parent and drawable is @drawable/icon_avatar_bear
-                    imageView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-//                    imageView.setImageResource(R.drawable.icon_avatar_bear)
-//                    builder.setView(imageView)
-
-
-                    builder.setPositiveButton("OK", object : DialogInterface.OnClickListener{
-                        override fun onClick(p0: DialogInterface?, p1: Int) {
-                            Log.d(TAG, "onPositiveButton: onClick , ${editText.text}")
-                            val icon = editText.text.toString().toIntOrNull() ?: 0
-                            FirebaseDatabase.getInstance().getReference("user")
-                                .child(auth.currentUser!!.uid)
-                                .child("icon")
-                                .setValue(icon)
-                                .addOnCompleteListener{
-                                    Log.d(TAG, "onAuthStateChanged() set icon value complete. icon: $icon")
-                                }
-                        }
-                    })
-                    builder.show()
-                     */
                     }
                 })
             }
@@ -244,7 +196,6 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
             requestPermissions(arrayOf(smsPermission), REQUEST_CODE_SMS_PERMISSION)
         }
         return grant == android.content.pm.PackageManager.PERMISSION_GRANTED
-//        return true
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -252,14 +203,11 @@ class LaunchActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         when (requestCode) {
             REQUEST_CODE_SMS_PERMISSION -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // 權限已獲得，執行相應操作
                     Log.d(TAG, "XXXXX> onRequestPermissionsResult: permission granted.")
                 } else {
-                    // 權限被拒絕
                     Log.d(TAG, "XXXXX> onRequestPermissionsResult: permission denied.")
                 }
             }
-            // ...
         }
     }
 

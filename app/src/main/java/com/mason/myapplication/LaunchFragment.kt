@@ -1,6 +1,7 @@
 package com.mason.myapplication
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ import com.google.firebase.database.ValueEventListener
 import com.mason.myapplication.databinding.FragmentLaunchBinding
 
 import com.mason.myapplication.guessnumber.RecordActivity
+import com.squareup.picasso.Picasso
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -82,6 +84,16 @@ class LaunchFragment : Fragment() , FirebaseAuth.AuthStateListener {
         binding.buttonYoubike.setOnClickListener {
             findNavController().navigate(R.id.action_First2Fragment_to_ItemFragment)
         }
+
+//        Picasso.get()
+//            .load("https://www.travel.taipei/image/176830")
+//            .into(binding.imageViewWeburl)
+
+//        binding.textviewWelcome.setOnClickListener {
+//            var intent =
+//                Intent(Intent.ACTION_VIEW, Uri.parse("https://cloudconvert.com/svg-to-png"))
+//            startActivity(intent)
+//        }
     }
 
     override fun onResume() {
